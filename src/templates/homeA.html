@@ -1,0 +1,217 @@
+{% extends './base2.html' %}
+
+{% block title %}Administrador{% endblock %}
+
+{% block body %}
+
+<style>
+  body {
+    font-size: 16px;
+    font-family: sans-serif;
+    background: #2c3e50;
+    padding: 0;
+    margin: 0;
+  }
+
+  .vertical-menu {
+    position: fixed;
+    left: 20px; /* Ajusta la distancia desde el borde izquierdo */
+    top: 150px; /* Ajusta la distancia desde la parte superior */
+    width: 250px; /* Ajusta el ancho del menú */
+    background-color: #34495e;
+    border-radius: 10px; /* Bordes redondeados */
+    overflow: hidden;
+    padding-bottom: 200px; /* Espacio en blanco en la parte inferior */
+  }
+
+  .vertical-menu a {
+    display: block;
+    padding: 16px;
+    text-decoration: none;
+    color: white;
+  }
+
+  .vertical-menu a:hover {
+    background-color: #1abc9c;
+    border-radius: 10px; /* Cambio de bordes redondeados al pasar el mouse */
+  }
+
+  .content {
+    margin-left: 300px; /* Ajusta el margen izquierdo para dejar espacio para el menú */
+    padding: 20px;
+    margin-top: 100px; /* Espacio superior ajustado */
+  }
+
+  h1 {
+    text-align: center;
+    margin: 10px 0;
+    font-size: 30px;
+    color: #ecf0f1;
+    text-shadow: 2px 2px 4px #000000;
+    font-family: 'Cherry Swash', cursive;
+  }
+  .clickable-card {
+      cursor: pointer;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .clickable-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-img-top {
+      height: 150px;
+      object-fit: cover;
+    }
+
+    .card-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      color: #ffffff;
+    }
+
+    .card-text {
+      font-size: 1rem;
+      color: #f8f9fa;
+    }
+
+    .card-footer {
+      background-color: #343a40;
+      text-align: center;
+      padding: 0.5rem;
+    }
+
+    .btn-primary {
+      background-color: #3498db;
+      border-color: #3498db;
+    }
+
+    .btn-primary:hover {
+      background-color: #2185d0;
+      border-color: #2185d0;
+    }
+</style>
+<br>
+<h1>Bienvenido, {{ current_user.fullname }}</h1>
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card clickable-card"onclick="window.location.href='{{ url_for('iniciar') }}';" style="background-color: #f39c12;">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-12 text-center">
+              <br>
+              <img class="mb-2" src="{{ url_for('static', filename='img/adjunto.png') }}" alt="" width="180" height="180">
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Documentos Adjuntos</h5>
+        </div>
+        <div class="card-footer">
+          <a href="{{ url_for('iniciar') }}" class="btn btn-primary">Ver más</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card clickable-card"onclick="window.location.href='{{ url_for('iniciarpre') }}';" style="background-color: #27ae60;">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-12 text-center">
+              <br>
+              <img class="mb-2" src="{{ url_for('static', filename='img/autoevaluacion.png') }}" alt="" width="180" height="180">
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Preguntas Autoevaluación</h5>
+        </div>
+        <div class="card-footer">
+          <a href="{{ url_for('iniciarpre') }}" class="btn btn-primary">Ver más</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card clickable-card"onclick="window.location.href='{{ url_for('homeEmpresa') }}';" style="background-color: #8e44ad;">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-12 text-center">
+              <br>
+              <img class="mb-2" src="{{ url_for('static', filename='img/empresa.png') }}" alt="" width="180" height="180">
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Registrar Empresa</h5>
+        </div>
+        <div class="card-footer">
+          <a href="{{ url_for('homeEmpresa') }}" class="btn btn-primary">Ver más</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-4">
+      <div class="card clickable-card"onclick="window.location.href='{{ url_for('homeItem') }}';" style="background-color: #e74c3c;">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-12 text-center">
+              <br>
+              <img class="mb-2" src="{{ url_for('static', filename='img/derechos.png') }}" alt="" width="180" height="180">
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Items generales</h5>
+        </div>
+        <div class="card-footer">
+          <a href="{{ url_for('homeItem') }}" class="btn btn-primary">Ver más</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card clickable-card"onclick="window.location.href='{{ url_for('itemsHome') }}';" style="background-color: #3498db;">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-12 text-center">
+              <br>
+              <img class="mb-2" src="{{ url_for('static', filename='img/principio.png') }}" alt="" width="180" height="180">
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Items</h5>
+        </div>
+        <div class="card-footer">
+          <a href="{{ url_for('itemsHome') }}" class="btn btn-primary">Ver más</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card clickable-card"onclick="window.location.href='{{ url_for('preguntasHome') }}';" style="background-color: #f1c40f;">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-12 text-center">
+              <br>
+              <img class="mb-2" src="{{ url_for('static', filename='img/preguntas2.png') }}" alt="" width="180" height="180">
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Preguntas</h5>
+        </div>
+        <div class="card-footer">
+          <a href="{{ url_for('preguntasHome') }}" class="btn btn-primary">Ver más</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

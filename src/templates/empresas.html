@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Formulario</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    .page {
+      display: none;
+    }
+    .active {
+      display: block;
+    }
+    #progress {
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: center;
+    }
+    #progress div {
+      display: inline-block;
+      width: 60px; /* Ancho del círculo */
+      height: 60px; /* Altura del círculo */
+      background-color: #ccc;
+      border-radius: 50%;
+      margin-right: 10px; /* Espacio entre círculos */
+      text-align: center;
+      line-height: 60px; /* Centrar número dentro del círculo */
+      color: white;
+      font-size: 40px; /* Tamaño de fuente del número */
+      font-weight: bold; /* Grosor del número */
+    }
+    #progress .active {
+      background-color: #5ed6b3;
+    }
+    .error-message {
+      color: red;
+    }
+    .error {
+      border: 1px solid red;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+    .modal-content {
+      background-color: #fefefe;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #3ac01f;
+      width: 300px;
+      margin-top: 0%;
+    }
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+  </style>  
+  <script>
+    document.getElementById('inputBusqueda').addEventListener('input', function() {
+      // Realizar la búsqueda aquí
+      var input = this.value.toLowerCase();
+      var opciones = document.querySelectorAll('#opciones option');
+      opciones.forEach(function(opcion) {
+        if (opcion.value.toLowerCase().includes(input)) {
+          opcion.style.display = 'block';
+        } else {
+          opcion.style.display = 'none';
+        }
+      });
+    });
+</script>
+<script>
+  function convertirAMayusculas(input) {
+    var texto = input.value;
+    input.value = texto.toUpperCase();
+  }
+</script>
+<script>
+  function validateStep(step) {
+  const currentPage = document.querySelector('.page.active');
+  const inputs = currentPage.querySelectorAll('input, select, textarea');
+  const errorMessage = currentPage.querySelector('.error-message');
+
+  let isValid = true;
+
+  inputs.forEach(input => {
+    if (input.tagName === 'SELECT' && input.value === '') {
+      isValid = false;
+      input.classList.add('error');
+    } else if (input.tagName !== 'SELECT' && !input.value.trim()) {
+      isValid = false;
+      input.classList.add('error');
+    } else {
+      input.classList.remove('error');
+    }
+  });
+
+  if (isValid) {
+    if (step === 3) {
+      //showModal();
+      setTimeout(function() {
+        alert('Te has registrado correctamente');
+      });
+    } else {
+      currentPage.classList.remove('active');
+      document.querySelector('.page:nth-child(' + (step + 1) + ')').classList.add('active');
+      updateProgress(step);
+      errorMessage.textContent = '';
+    }
+  } else {
+    errorMessage.textContent = 'Por favor, complete todos los campos obligatorios.';
+  }
+}
+
+
+  function prevStep(currentButton) {
+    const currentPage = currentButton.closest('.page');
+    currentPage.classList.remove('active');
+    currentPage.previousElementSibling.classList.add('active');
+    updateProgress(getStepIndex(currentPage) - 1);
+  }
+
+  function updateProgress(step) {
+    const progressItems = document.querySelectorAll('#progress div');
+    progressItems.forEach((item, index) => {
+      if (index <= step) {
+        item.classList.add('active');
+      } else {
+        item.classList.remove('active');
+      }
+    });
+  }
+
+  function getStepIndex(stepElement) {
+    const pages = document.querySelectorAll('.page');
+    return Array.from(pages).indexOf(stepElement);
+  }
+
+  function showModal() {
+    const modal = document.getElementById('myModal');
+    const span = modal.getElementsByClassName('close')[0];
+    
+    modal.style.display = 'block';
+    
+    span.onclick = function() {
+      modal.style.display = 'none';
+    };
+    
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = 'none';
+      }
+    };
+  }
+</script>
+</head>
+<body>
+  <header>
+    {% include 'navbar2.html' %}
+  </header>
+  <br>
+  <div class="container mt-2">
+    
+      <div class="form-group">
+        <div id="containerDatos" class="border p-3 containerDatos" style="background-color: white;">
+          <div class="text-center">
+            <img class="mb-2" src="{{ url_for('static', filename='img/empresaimg.png') }}" alt="" width="1085" height="200">
+          </div>
+          <div id="progress">
+            <div class="active">1</div>
+            <div>2</div>
+            <div>3</div>
+          </div>
+          <div style="background-color: #2c3e50; padding-bottom: 5px; padding-top: 5px"><h2>Datos Empresa</h2></div>
+          <br>
+          <form action="/empresa" method="POST" enctype="multipart/form-data" id="myForm">
+          <!-- Paso 1 -->
+          <div class="page active">
+            <div class="form-row">
+              <div class="col-md-6 mb-3">
+                <label for="razonEmpresa">Razón de la empresa</label>
+                <input type="text" class="form-control" id="razonEmpresa" name="razonEmpresa" placeholder="Razón empresa" oninput="convertirAMayusculas(this)" required>
+              </div>
+              <div class="col-md-6 mb-3">
+                  <label for="empleado">Representante Legal</label>
+                  <input type="text" class="form-control" id="inputBusqueda" list="opciones" name="seleccion" oninput="convertirAMayusculas(this)" placeholder="Ingrese su búsqueda">
+                  <datalist id="opciones">
+                      {% for d in data %}
+                      <option value="{{d.pri_nom}} {{d.seg_nombre}} {{d.primer_apellido}} {{d.segundo_apellido}}">{{d.pri_nom}} {{d.seg_nombre}} {{d.primer_apellido}} {{d.segundo_apellido}}</option>
+                      {% endfor %}
+                  </datalist>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col-md-6 mb-3">
+                <label for="tipoDocumento">Tipo de Documento</label>
+                <select class="form-control" id="tipoDocumento" name="tipoDocumento" required>
+                  <option value="">Seleccione...</option>
+                  {% for da in data2 %}
+                    <option value="{{da.tipo_documento_id}}">{{da.nombre}}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="documento">Número de Documento</label>
+                <input type="text" class="form-control" id="documento" name="documento" placeholder="Número Documento" oninput="convertirAMayusculas(this)" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col-md-6 mb-3">
+                <label for="archivoPDF">Certificado de Cámara y comercio PDF Documento</label>
+                <input type="file" class="form-control mb-3 " id="archivoPDF" name="archivoPDF" accept=".pdf" required>
+              </div>
+              <div class="col-md-6 mb-3 align-items-end justify-content-end">
+                <button class="btn float-right" type="button" onclick="validateStep(1)" style="margin-top: 53px; background-color:  #5ed6b3; color: white;text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); font-family: 'Arial', sans-serif; box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Siguiente</button>
+              </div>
+            </div>
+            <div class="error-message"></div>
+          </div>
+
+          <!-- Paso 2 -->
+          <div class="page">
+            <div class="form-row">
+              <div class="col-md-6 mb-3">
+                <label for="direccionContacto">Correo electrónico</label>
+                <input type="text" class="form-control" id="direccionContacto" name="direccionContacto" placeholder="Correo electrónico" required>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="tipoTelefono">Tipo de Teléfono</label>
+                <select class="form-control" id="tipoTelefono" name="tipoTelefono" required>
+                  <option value="">Seleccione...</option>
+                  {% for da in data4 %}
+                    <option value="{{da.tipo_id}}">{{da.tipo_nombre}}</option>
+                  {% endfor %}
+                </select>
+                <div class="error-message"></div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col-md-6 mb-3">
+                <label for="telefono">Teléfono</label>
+                <input type="number" class="form-control" id="telefono" name="telefono" placeholder="Telefono" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col-md-6 mb-3">
+                <button class="btn float-left" type="button" onclick="prevStep(this)" style="margin-top: 23px; background-color:  #5ed6b3; color: white;text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); font-family: 'Arial', sans-serif; box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Atrás</button>
+              </div>
+              <div class="col-md-6 mb-3">
+                <button class="btn float-right" type="button" onclick="validateStep(2)" style="margin-top: 23px; background-color:  #5ed6b3; color: white;text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); font-family: 'Arial', sans-serif; box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Siguiente</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Paso 3 -->
+          <div class="page">
+            <div class="form-row">
+              <div class="col-md-6 mb-3">
+                <label for="tipoDireccionF">Tipo de dirección física</label>
+                <select class="form-control" id="tipoDireccionF" name="tipoDireccionF" required>
+                  <option value="">Seleccione...</option>
+                  {% for da in data5 %}
+                    <option value="{{da.tipo_direccion_id}}">{{da.nombre_tipo_direccion}}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="direccionFisica">Dirección Física</label>
+                <input type="text" class="form-control" id="direccionFisica" name="direccionFisica" placeholder="Dirección física" oninput="convertirAMayusculas(this)" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col-md-6 mb-3">
+                <label for="ciudad">Ciudad</label>
+                <select class="form-control" id="ciudad" name="ciudad" required>
+                  <option value="">Seleccione...</option>
+                  {% for da in data6 %}
+                    <option value="{{da.ciudad_id}}">{{da.nombre}}</option>
+                  {% endfor %}
+                </select>
+                <div class="error-message"></div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col-md-6 mb-3">
+                <button class="btn float-left" type="button" onclick="prevStep(this)" style="margin-top: 23px; background-color:  #5ed6b3; color: white;text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); font-family: 'Arial', sans-serif; box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Atrás</button>
+              </div>
+              <div class="col-md-6 mb-3">
+                <button class="btn float-right" type="submit" onclick="validateStep(3)" style="margin-top: 23px; background-color:  #5ed6b3; color: white;text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); font-family: 'Arial', sans-serif; box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Enviar</button>
+              </div>
+            </div>
+          </div>
+
+          <div id="myModal" class="modal">
+            <div class="modal-content">
+              <span class="close">&times;</span>
+              <h3 id="successMessage">¡Formulario Enviado!</h3>
+              <p>Gracias por completar el formulario.</p>
+            </div>
+          </div>
+
+          </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+{% extends './base2.html' %}
+
+{% block title %}Visualizar empleados{% endblock %}
+
+{% block body %}
+<br>
+<br>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+  {% for message in messages %}
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-sm-6"> <!-- Aquí puedes ajustar el ancho según tus necesidades -->
+        <div class="alert alert-primary alert-dismissible" role="alert">
+          <strong>{{ message }}</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+{% endif %}
+
+{% endwith %}
+<div class="container">
+    <div class="row justify-content-center">
+        {% for d in data %}
+        <div class="col-sm-5 mb-4"> <!-- Esta clase "col-sm-6" hace que las tarjetas ocupen 50% del ancho en pantallas pequeñas -->
+            <form action="/visualizarEDocg" method="POST" enctype="multipart/form-data">
+                <div class="card" style="background-color: rgb(40, 105, 40)">
+                    <input type="hidden" name="idInforme" value="{{id_informe}}">
+                    <div class="card-header">
+                        <input type="hidden" name="tarjeta_id" value="{{d.tipo_documento_id}}">
+                        <h2>{{d.nom_tipo_doc}}</h2>
+                    </div>
+                    <div class="card-body" style="background-color: rgba(238, 233, 233, 0.76);">
+                        <br>
+                        <img class="mb-2" src="{{ url_for('static', filename='img/policia.png') }}" alt="" width="200" height="200">
+                    </div>
+                    <div class="card-footer text-center">
+                        <input type="hidden" name="titulo" value="{{d.nom_tipo_doc}}">
+                        <div>
+                            <label>Guarde el texto resultado de los antecedentes de policía</label>
+                            <textarea name="contenido" id="contenido" class="form-control mb-2" cols="30" rows="7" required></textarea>
+                            <a href="https://antecedentes.policia.gov.co:7005/WebJudicial/antecedentes.xhtml" target="_blank">Página origen de antecedentes policía</a>
+                            <br>
+                            <button class="btn float-right" type="submit" style="margin-top: 3px;margin-right: -230px;background-color:  #5ed6b3; color: white;text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); font-family: 'Arial', sans-serif; box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Guardar</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

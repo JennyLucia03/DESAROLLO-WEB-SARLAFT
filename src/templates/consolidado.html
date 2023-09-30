@@ -1,0 +1,518 @@
+{% extends './base.html' %}
+
+{% block title %}Consolidado{% endblock %}
+
+{% block body %}
+<style>
+    .boton {
+    color: white;
+    border: #000;
+    border-radius: 5px;
+    display: inline-block;
+    text-align: center;
+    text-decoration:none;
+    padding: 0.5em 1.2em;
+    background: #318aac;
+    border: 0px solid;
+    position: relative;
+    box-shadow: 0px 3px 0px #000;
+  }
+
+    .boton:before {
+    content:"";
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 0px;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    transition: all 1s ease;
+    }
+    .boton:hover:before {
+    width: 100%;
+    }
+    .boton i {
+    margin-right: 10px;
+    }
+    .boton.white{
+      background: white;
+    }
+    .boton.marin{
+    background: #1abc9c;
+    }
+    .boton.green {
+    background: #1CC60B;
+    }
+    .boton.red {
+    background: #E30B0B;
+    }
+    .boton.blue {
+    background: #4855DA;
+    }
+    .boton.orange {
+    background: #E29C11;
+    }
+    .boton.purple {
+    background: #B911E2;
+    }
+    .boton.gray {
+    background: #858585;
+    }
+</style>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var celdaOrigen = document.querySelector('.valor-origen');
+      var celdaDestino = document.querySelector('.valor-celda');
+      var valor = parseInt(celdaOrigen.textContent);
+
+      if (!isNaN(valor)) {
+
+        if (valor >= 0 && valor <= 39) {
+            celdaDestino.classList.add('bg-danger');
+        } else if (valor > 39 && valor <= 79) {
+            celdaDestino.classList.add('bg-warning');
+        } else if (valor > 79 && valor <= 100) {
+            celdaDestino.classList.add('bg-success');
+        }
+      }
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var celdaOrigen = document.querySelector('.valor-origen2');
+      var celdaDestino = document.querySelector('.valor-celda2');
+      var valor = parseInt(celdaOrigen.textContent);
+
+      if (!isNaN(valor)) {
+
+        if (valor >= 0 && valor <= 39) {
+            celdaDestino.classList.add('bg-danger');
+        } else if (valor > 39 && valor <= 79) {
+            celdaDestino.classList.add('bg-warning');
+        } else if (valor > 79 && valor <= 100) {
+            celdaDestino.classList.add('bg-success');
+        }
+      }
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var celdaOrigen = document.querySelector('.valor-origen3');
+      var celdaDestino = document.querySelector('.valor-celda3');
+      var valor = parseInt(celdaOrigen.textContent);
+
+      if (!isNaN(valor)) {
+
+        if (valor >= 0 && valor <= 39) {
+            celdaDestino.classList.add('bg-danger');
+        } else if (valor > 39 && valor <= 79) {
+            celdaDestino.classList.add('bg-warning');
+        } else if (valor > 79 && valor <= 100) {
+            celdaDestino.classList.add('bg-success');
+        }
+      }
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var celdaOrigen = document.querySelector('.valor-origen4');
+      var celdaDestino = document.querySelector('.valor-celda4');
+      var valor = parseInt(celdaOrigen.textContent);
+
+      if (!isNaN(valor)) {
+
+        if (valor >= 0 && valor <= 39) {
+            celdaDestino.classList.add('bg-danger');
+        } else if (valor > 39 && valor <= 79) {
+            celdaDestino.classList.add('bg-warning');
+        } else if (valor > 79 && valor <= 100) {
+            celdaDestino.classList.add('bg-success');
+        }
+      }
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var celdaOrigen = document.querySelector('.valor-origen5');
+      var celdaDestino = document.querySelector('.valor-celda5');
+      var valor = parseInt(celdaOrigen.textContent);
+
+      if (!isNaN(valor)) {
+
+        if (valor >= 0 && valor <= 39) {
+            celdaDestino.classList.add('bg-danger');
+        } else if (valor > 39 && valor <= 79) {
+            celdaDestino.classList.add('bg-warning');
+        } else if (valor > 79 && valor <= 100) {
+            celdaDestino.classList.add('bg-success');
+        }
+      }
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var celdaOrigen = document.querySelector('.valor-origen6');
+      var celdaDestino = document.querySelector('.valor-celda6');
+      var valor = parseInt(celdaOrigen.textContent);
+
+      if (!isNaN(valor)) {
+
+        if (valor >= 0 && valor <= 39) {
+            celdaDestino.classList.add('bg-danger');
+        } else if (valor > 39 && valor <= 79) {
+            celdaDestino.classList.add('bg-warning');
+        } else if (valor > 79 && valor <= 100) {
+            celdaDestino.classList.add('bg-success');
+        }
+      }
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var celdaOrigen = document.querySelector('.valor-origen7');
+      var celdaDestino = document.querySelector('.valor-celda7');
+      var valor = parseInt(celdaOrigen.textContent);
+
+      if (!isNaN(valor)) {
+
+        if (valor >= 0 && valor <= 39) {
+            celdaDestino.classList.add('bg-danger');
+        } else if (valor > 39 && valor <= 79) {
+            celdaDestino.classList.add('bg-warning');
+        } else if (valor > 79 && valor <= 100) {
+            celdaDestino.classList.add('bg-success');
+        }
+      }
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var celdaOrigen = document.querySelector('.valor-origen8');
+      var celdaDestino = document.querySelector('.valor-celda8');
+      var valor = parseInt(celdaOrigen.textContent);
+
+      if (!isNaN(valor)) {
+
+        if (valor >= 0 && valor <= 39) {
+            celdaDestino.classList.add('bg-danger');
+        } else if (valor > 39 && valor <= 79) {
+            celdaDestino.classList.add('bg-warning');
+        } else if (valor > 79 && valor <= 100) {
+            celdaDestino.classList.add('bg-success');
+        }
+      }
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var celdaOrigen = document.querySelector('.valor-origen9');
+      var celdaDestino = document.querySelector('.valor-celda9');
+      var valor = parseInt(celdaOrigen.textContent);
+
+      if (!isNaN(valor)) {
+
+        if (valor >= 0 && valor <= 39) {
+            celdaDestino.classList.add('bg-danger');
+        } else if (valor > 39 && valor <= 79) {
+            celdaDestino.classList.add('bg-warning');
+        } else if (valor > 79 && valor <= 100) {
+            celdaDestino.classList.add('bg-success');
+        }
+      }
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var celdaOrigen = document.querySelector('.valor-origen10');
+      var celdaDestino = document.querySelector('.valor-celda10');
+      var valor = parseInt(celdaOrigen.textContent);
+
+      if (!isNaN(valor)) {
+
+        if (valor >= 0 && valor <= 39) {
+            celdaDestino.classList.add('bg-danger');
+        } else if (valor > 39 && valor <= 79) {
+            celdaDestino.classList.add('bg-warning');
+        } else if (valor > 79 && valor <= 100) {
+            celdaDestino.classList.add('bg-success');
+        }
+      }
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var celdaOrigen = document.querySelector('.valor-origen11');
+      var celdaDestino = document.querySelector('.valor-celda11');
+      var valor = parseInt(celdaOrigen.textContent);
+
+      // Obtén el elemento del div
+      var cardDiv = document.querySelector('.c1');
+
+      if (!isNaN(valor)) {
+
+        if (valor >= 0 && valor <= 39) {
+            cardDiv.style.setProperty('--color', 'hsl(357, 100%, 49%)');
+        } else if (valor > 39 && valor <= 79) {
+            cardDiv.style.setProperty('--color', 'hsl(56, 91%, 54%)');
+        } else if (valor > 79 && valor <= 100) {
+            cardDiv.style.setProperty('--color', 'hsl(120, 93%, 24%)');
+        }
+      }
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var celdaOrigen = document.querySelector('.valor-origen11');
+      var celdaDestino = document.querySelector('.valor-celda12');
+      var valor = parseInt(celdaOrigen.textContent);
+
+      // Obtén el elemento del div
+      var cardDiv = document.querySelector('.c2');
+
+      if (!isNaN(valor)) {
+
+        if (valor >= 0 && valor <= 39) {
+            cardDiv.style.setProperty('--color', 'hsl(357, 100%, 49%)');
+        } else if (valor > 39 && valor <= 79) {
+            cardDiv.style.setProperty('--color', 'hsl(56, 91%, 54%)');
+        } else if (valor > 79 && valor <= 100) {
+            cardDiv.style.setProperty('--color', 'hsl(120, 93%, 24%)');
+        }
+      }
+    });
+</script>
+<br>
+<div class="container">
+    <div class="row">
+      <div class="col d-flex justify-content-start">
+        <a href="{{ url_for('hderechoshumanos') }}" class="boton gray" onclick="return false;" style="pointer-events: none; margin-right:2px ;">Derechos Humanos</a>
+        <a href="{{ url_for('hderechoslaborales') }}" class="boton gray" onclick="return false;" style="pointer-events: none; margin-right:2px ;">Derechos Laborales</a>
+        <a href="{{ url_for('hmedioambiente') }}" class="boton gray" onclick="return false;" style="pointer-events: none; margin-right:2px ;">Medio Ambiente</a>
+        <a href="{{ url_for('hanticorrupcion') }}" class="boton gray" onclick="return false;" style="pointer-events: none; margin-right:2px ;">Anticorrupción</a>
+        <a href="{{ url_for('hconsolidado') }}" class="boton marin"style="margin-right: 2px;">Consolidado</a>
+        <a href="{{ url_for('hresumen') }}" class="boton marin"style="margin-right: 2px;">Resumen Gerencial</a>
+        <a href="{{ url_for('home') }}" class="boton red"style="margin-left: 69px;">Salir</a>
+      </div>
+    </div>
+  </div>
+<div class="container">
+    <div class="card shadow">
+        <div class="card-body">
+                <div class="text-center">
+                    <img class="mb-2" src="{{ url_for('static', filename='img/resumengeneral.png') }}" alt="" width="1085" height="180">
+                </div>
+
+            <!--tabla-->
+            <table class = "table table-bordered">
+                <thead style="background-color: rgb(189, 49, 49);">
+                    <th scope="col">Áreas</th>
+                    <th scope="col">Principios</th>
+                    <th scope="col">Promedio</th>
+                    <th scope="col">Porcentaje</th>
+                </thead>
+            <tbody>
+                    {% for d in data %}
+                    <tr>
+                        <td rowspan="2" class="text-center align-middle">{{ d.items_generales_nom }}</td>
+                        <td>{{ d.descripcion }}</td>
+                        <td class="text-center align-middle" border-width="2px">                               
+                            <h1>{{d.promedio}}</h1>
+                        </td> 
+                        <td id="valor1" class="text-center align-middle valor-origen valor-celda vc">{{d.porcentaje}}%</td>
+                        <script src="script.js"></script>
+                    </tr>
+                    {% endfor %}
+                    {% for d in data2 %}
+                    <tr>
+                        <td>{{ d.descripcion }}</td>
+                        <td class="text-center align-middle" border-width="2px">                               
+                            <h1>{{d.promedio}}</h1>
+                        </td> 
+                        <td id="valor2" class="text-center align-middle valor-origen2 valor-celda2 vc">{{d.porcentaje}}%</td>
+                        <script src="script.js"></script>
+                    </tr>
+                    {% endfor %}
+                    {% for d in data3 %}
+                    <tr>
+                        <td rowspan="4" class="text-center align-middle">{{ d.items_generales_nom }}</td>
+                        <td>{{ d.descripcion }}</td>
+                        <td class="text-center align-middle" border-width="2px">                               
+                            <h1>{{d.promedio}}</h1>
+                        </td> 
+                        <td id="valor1" class="text-center align-middle valor-origen3 valor-celda3 vc">{{d.porcentaje}}%</td>
+                        <script src="script.js"></script>
+                    </tr>
+                    {% endfor %}
+                    {% for d in data5 %}
+                    <tr>
+                        <td>{{ d.descripcion }}</td>
+                        <td class="text-center align-middle" border-width="2px">                               
+                            <h1>{{d.promedio}}</h1>
+                        </td> 
+                        <td id="valor2" class="text-center align-middle valor-origen4 valor-celda4 vc">{{d.porcentaje}}%</td>
+                        <script src="script.js"></script>
+                    </tr>
+                    {% endfor %}
+                    {% for d in data6 %}
+                    <tr>
+                        <td>{{ d.descripcion }}</td>
+                        <td class="text-center align-middle" border-width="2px">                               
+                            <h1>{{d.promedio}}</h1>
+                        </td> 
+                        <td id="valor2" class="text-center align-middle valor-origen5 valor-celda5 vc">{{d.porcentaje}}%</td>
+                        <script src="script.js"></script>
+                    </tr>
+                    {% endfor %}
+                    {% for d in data4 %}
+                    <tr>
+                        <td>{{ d.descripcion }}</td>
+                        <td class="text-center align-middle" border-width="2px">                               
+                            <h1>{{d.promedio}}</h1>
+                        </td> 
+                        <td id="valor2" class="text-center align-middle valor-origen6 valor-celda6 vc">{{d.porcentaje}}%</td>
+                        <script src="script.js"></script>
+                    </tr>
+                    {% endfor %}
+                    {% for d in data7 %}
+                    <tr>
+                        <td rowspan="3" class="text-center align-middle">{{ d.items_generales_nom }}</td>
+                        <td>{{ d.descripcion }}</td>
+                        <td class="text-center align-middle" border-width="2px">                               
+                            <h1>{{d.promedio}}</h1>
+                        </td> 
+                        <td id="valor1" class="text-center align-middle valor-origen7 valor-celda7 vc">{{d.porcentaje}}%</td>
+                        <script src="script.js"></script>
+                    </tr>
+                    {% endfor %}
+                    {% for d in data8 %}
+                    <tr>
+                        <td>{{ d.descripcion }}</td>
+                        <td class="text-center align-middle" border-width="2px">                               
+                            <h1>{{d.promedio}}</h1>
+                        </td> 
+                        <td id="valor2" class="text-center align-middle valor-origen8 valor-celda8 vc">{{d.porcentaje}}%</td>
+                        <script src="script.js"></script>
+                    </tr>
+                    {% endfor %}
+                    {% for d in data9 %}
+                    <tr>
+                        <td>{{ d.descripcion }}</td>
+                        <td class="text-center align-middle" border-width="2px">                               
+                            <h1>{{d.promedio}}</h1>
+                        </td> 
+                        <td id="valor2" class="text-center align-middle valor-origen9 valor-celda9 vc">{{d.porcentaje}}%</td>
+                        <script src="script.js"></script>
+                    </tr>
+                    {% endfor %}
+                    {% for d in data10 %}
+                    <tr>
+                        <td rowspan="2" class="text-center align-middle">{{ d.items_generales_nom }}</td>
+                        <td>{{ d.descripcion }}</td>
+                        <td class="text-center align-middle" border-width="2px">                               
+                            <h1>{{d.promedio}}</h1>
+                        </td> 
+                        <td id="valor1" class="text-center align-middle valor-origen10 valor-celda10 vc">{{d.porcentaje}}%</td>
+                        <script src="script.js"></script>
+                    </tr>
+                    {% endfor %}
+            </tbody>
+        </table>
+        <div style="display: flex;">
+            <table style="float: left; margin-right: 20px;" class = "table table-bordered">
+                <thead>
+                    <tr style="background-color: rgb(189, 49, 49);">
+                        <th>Puntaje</th>
+                        <th>Interpretación</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>4</td>
+                        <td>SIEMPRE</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>CASI SIEMPRE</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>OCASIONALMENTE</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>CASI NUNCA</td>
+                    </tr>
+                    <tr>
+                        <td>0</td>
+                        <td>NUNCA</td>
+                    </tr>
+                </tbody>
+            </table>
+        
+            <table style="float: right; margin-left: 30px;" class = "table table-bordered">
+                <thead>
+                    <tr style="background-color: rgb(189, 49, 49);">
+                        <th>Rango de colores para el % de los Principios</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="bg-success">Porcentaje mayor al 80%</td>
+                    </tr>
+                    <tr>
+                        <td class="bg-warning">Porcentaje entre 50% y 80%</td>
+                    </tr>
+                    <tr>
+                        <td class="bg-danger">Porcentaje menor al 50%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="display: flex;">
+            <section class ="card-general">
+                <div class="card1 valor-celda11 c1" id="card1" style="--color: ; float: left; margin-left: 200px;">
+                  <div class="card__border"></div>
+                  <div class="card__border-line"></div>
+                  <div class="card__inner">
+                    <div class="card__img">
+                      <div class="img__athlete">
+                      </div>
+                    </div>
+                    <div class="card__text">
+                      <div class="card__type" style="--bg-color: hsl(40, 100%, 50%);">#</div>
+                      <h1 class="name">Promedio General</h1>
+                      <br>
+                      {% for d in data11 %}
+                        <p class="points vc">{{d.promedio}}</p>
+                      {% endfor %}
+                    </div>
+                  </div>
+                </div>
+              </section>
+              <section class ="card-general">
+                <div class="card1 valor-celda12 c2" id="card2" style="--color: ; float: right; margin-right: 200px;">
+                  <div class="card__border"></div>
+                  <div class="card__border-line"></div>
+                  <div class="card__inner">
+                    <div class="card__img">
+                      <div class="img__athlete">
+                      </div>
+                    </div>
+                    <div class="card__text">
+                      <div class="card__type" style="--bg-color: hsl(40, 100%, 50%);">%</div>
+                      <h1 class="name">Promedio General</h1>
+                      <br>
+                      {% for d in data11 %}
+                        <p class="points valor-origen11 vc">{{d.porcentaje}}%</p>
+                      {% endfor %}
+                    </div>
+                  </div>
+                </div>
+                </div>
+              </section>
+        </div>
+        
+        </div>
+    </div>
+</div>
+{% endblock %}

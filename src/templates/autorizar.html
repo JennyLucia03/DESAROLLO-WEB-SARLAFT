@@ -1,0 +1,40 @@
+{% extends './base.html' %}
+
+{% block title %}Autorizar{% endblock %}
+
+{% block body %}
+<br>
+<div class="container mt-2 d-flex justify-content-center">
+    <form action="/autorizarg" method="POST" enctype="multipart/form-data">
+      <div class="form-group">
+        <h2>Autorizar a persona natural</h2>
+        <br>
+        <div id="containerDatos" style="background-color: white;" class="border p-3 containerDatos col-sm-12">
+            <input type="hidden" value="{{id_empresa}}" name="idEmpresaE">
+            <div class="form-row">
+              <div class="col-md-12 mb-4">
+                <label for="persona">Persona</label>
+                <input type="text" class="form-control" id="inputBusqueda" list="opciones" name="seleccion" oninput="convertirAMayusculas(this)" placeholder="Ingrese su búsqueda" required>
+                <datalist id="opciones">
+                  {% for da in data %}
+                  <option value="{{da.pri_nom}} {{da.seg_nombre}} {{da.primer_apellido}} {{da.segundo_apellido}}">{{da.pri_nom}} {{da.seg_nombre}} {{da.primer_apellido}} {{da.segundo_apellido}}</option>
+                  {% endfor %}
+                </datalist>
+                <label for="empresa">Empresa a vincular</label>
+                <input type="text" class="form-control" id="inputBusqueda2" list="opciones2" name="seleccion2" oninput="convertirAMayusculas(this)" placeholder="Ingrese su búsqueda" required>
+                <datalist id="opciones2">
+                  {% for da in data2 %}
+                  <option value="{{da.Razon_empresa}}">{{da.Razon_empresa}}</option>
+                  {% endfor %}
+                </datalist>
+                <label for="comentarios">Comentario</label>
+                <textarea id="comentarios" name="comentarios" class="form-control" rows="4" cols="50" required></textarea>
+              </div>
+            </div>
+            <div class="col-md-12 text-right align-items-end">
+              <button class="btn" type="submit" style="margin-top: -2px;background-color:  #5ed6b3; color: white;text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); font-family: 'Arial', sans-serif; box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); margin-right: -350px;">Autorizar</button>
+            </div>
+          </div>
+          </div>
+        </div>
+{% endblock %}

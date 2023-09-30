@@ -1,0 +1,552 @@
+{% extends './base.html' %}
+
+{% block title %}Derechos Laborales{% endblock %}
+
+{% block body %}
+<style>
+    #promedio-placeholder::after {
+        content: attr(data-promedio);
+    }
+    .rojo {
+
+    background-color: red;
+
+    }
+
+    .naranja {
+
+    background-color: orange;
+
+    }
+
+    .amarillo {
+
+    background-color: yellow;
+
+    }
+
+    .verde {
+
+    background-color: green;
+
+
+    }
+    .boton {
+    color: white;
+    border: #000;
+    border-radius: 5px;
+    display: inline-block;
+    text-align: center;
+    text-decoration:none;
+    padding: 0.5em 1.2em;
+    background: #318aac;
+    border: 0px solid;
+    position: relative;
+    box-shadow: 0px 3px 0px #000;
+  }
+
+    .boton:before {
+    content:"";
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 0px;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    transition: all 1s ease;
+    }
+    .boton:hover:before {
+    width: 100%;
+    }
+    .boton i {
+    margin-right: 10px;
+    }
+    .boton.white{
+      background: white;
+    }
+    .boton.marin{
+    background: #1abc9c;
+    }
+    .boton.green {
+    background: #1CC60B;
+    }
+    .boton.red {
+    background: #E30B0B;
+    }
+    .boton.blue {
+    background: #4855DA;
+    }
+    .boton.orange {
+    background: #E29C11;
+    }
+    .boton.purple {
+    background: #B911E2;
+    }
+    .boton.gray {
+    background: #858585;
+    }
+</style>
+<script>
+    function calcularPromedio() {
+      // Obtener todos los elementos select de las filas
+      var selects = document.querySelectorAll('.valor');
+
+      // Inicializar variables para el cálculo del promedio
+
+      var total = 0;
+      var cantidad = 0;
+
+      // Recorrer cada elemento select y obtener su valor seleccionado
+
+      for (var i = 0; i < selects.length; i++) {
+        var valorSeleccionado = parseFloat(selects[i].value);
+
+        // Verificar si se ha seleccionado un valor válido
+
+        if (!isNaN(valorSeleccionado)) {
+          total += valorSeleccionado;
+          cantidad++;
+        }
+
+      }
+
+      // Calcular el promedio dividiendo la suma total entre la cantidad de valores seleccionados
+      var promedio = total / cantidad;
+      var porcentajev = promedio*100/4;
+
+      // Actualizar el contenido de la celda de promedio
+      var promedioCelda = document.getElementById('promedio');
+      var porcentaje = document.getElementById('porcentaje');
+      promedioCelda.innerHTML = promedio.toFixed(2);
+      porcentaje.innerHTML = porcentajev.toFixed(0)+"% ";
+
+     
+      // Establecer el color de fondo de la celda de acuerdo al promedio
+      var colorCelda = document.getElementById('color');
+      colorCelda.className = 'align-middle';
+      if (porcentajev >= 0 && porcentajev <= 39) {
+        colorCelda.classList.add('bg-danger');
+      } else if (porcentajev > 39 && porcentajev <= 79) {
+        colorCelda.classList.add('bg-warning');
+      } else if (porcentajev > 79 && porcentajev <= 100) {
+        colorCelda.classList.add('bg-success');
+      }
+
+      calcularPromedioTotal();
+
+    }
+
+    function calcularPromedioTotal() {
+
+      var promedios = document.querySelectorAll('#promedio');
+      var totalPromedios = 0;
+      var cantidadPromedios = 0;
+     
+      for (var i = 0; i < promedios.length; i++) {
+
+        var promedio = parseFloat(promedios[i].innerHTML);
+        if (!isNaN(promedio)) {
+          totalPromedios += promedio;
+          cantidadPromedios++;
+        }
+
+      }
+
+      var promedioTotal = totalPromedios / cantidadPromedios;
+      var promedioTotalCelda = document.getElementById('promedioTotal');
+      promedioTotalCelda.innerHTML = promedioTotal.toFixed(2);
+
+    }
+
+  </script>
+  <script>
+    function calcularPromedio3() {
+      // Obtener todos los elementos select de las filas
+      var selects = document.querySelectorAll('.valor3');
+
+      // Inicializar variables para el cálculo del promedio
+
+      var total = 0;
+      var cantidad = 0;
+
+      // Recorrer cada elemento select y obtener su valor seleccionado
+
+      for (var i = 0; i < selects.length; i++) {
+        var valorSeleccionado = parseFloat(selects[i].value);
+
+        // Verificar si se ha seleccionado un valor válido
+
+        if (!isNaN(valorSeleccionado)) {
+          total += valorSeleccionado;
+          cantidad++;
+        }
+
+      }
+
+      // Calcular el promedio dividiendo la suma total entre la cantidad de valores seleccionados
+      var promedio = total / cantidad;
+      var porcentajev = promedio*100/4;
+
+      // Actualizar el contenido de la celda de promedio
+      var promedioCelda = document.getElementById('promedio3');
+      var porcentaje = document.getElementById('porcentaje3');
+      promedioCelda.innerHTML = promedio.toFixed(2);
+      porcentaje.innerHTML = porcentajev.toFixed(0)+"% ";
+
+     
+      // Establecer el color de fondo de la celda de acuerdo al promedio
+      var colorCelda = document.getElementById('color3');
+      colorCelda.className = 'align-middle';
+      if (porcentajev >= 0 && porcentajev <= 39) {
+        colorCelda.classList.add('bg-danger');
+      } else if (porcentajev > 39 && porcentajev <= 79) {
+        colorCelda.classList.add('bg-warning');
+      } else if (porcentajev > 79 && porcentajev <= 100) {
+        colorCelda.classList.add('bg-success');
+      }
+
+      calcularPromedioTotal3();
+
+    }
+
+    function calcularPromedioTotal3() {
+
+      var promedios = document.querySelectorAll('#promedio3');
+      var totalPromedios = 0;
+      var cantidadPromedios = 0;
+     
+      for (var i = 0; i < promedios.length; i++) {
+
+        var promedio = parseFloat(promedios[i].innerHTML);
+        if (!isNaN(promedio)) {
+          totalPromedios += promedio;
+          cantidadPromedios++;
+        }
+
+      }
+
+      var promedioTotal = totalPromedios / cantidadPromedios;
+      var promedioTotalCelda = document.getElementById('promedioTotal3');
+      promedioTotalCelda.innerHTML = promedioTotal.toFixed(2);
+
+    }
+
+  </script>
+<script>
+    function calcularPromedio2() {
+      // Obtener todos los elementos select de las filas
+      var selects = document.querySelectorAll('.valor2');
+
+      // Inicializar variables para el cálculo del promedio
+
+      var total = 0;
+      var cantidad = 0;
+
+      // Recorrer cada elemento select y obtener su valor seleccionado
+
+      for (var i = 0; i < selects.length; i++) {
+        var valorSeleccionado = parseFloat(selects[i].value);
+
+        // Verificar si se ha seleccionado un valor válido
+
+        if (!isNaN(valorSeleccionado)) {
+          total += valorSeleccionado;
+          cantidad++;
+        }
+
+      }
+
+      // Calcular el promedio dividiendo la suma total entre la cantidad de valores seleccionados
+      var promedio = total / cantidad;
+      var porcentajev = promedio*100/4;
+
+      // Actualizar el contenido de la celda de promedio
+      var promedioCelda = document.getElementById('promedio2');
+      var porcentaje = document.getElementById('porcentaje2');
+      promedioCelda.innerHTML = promedio.toFixed(2);
+      porcentaje.innerHTML = porcentajev.toFixed(0)+"% ";
+
+     
+      // Establecer el color de fondo de la celda de acuerdo al promedio
+      var colorCelda = document.getElementById('color2');
+      colorCelda.className = 'align-middle';
+      if (porcentajev >= 0 && porcentajev <= 39) {
+        colorCelda.classList.add('bg-danger');
+      } else if (porcentajev > 39 && porcentajev <= 79) {
+        colorCelda.classList.add('bg-warning');
+      } else if (porcentajev > 79 && porcentajev <= 100) {
+        colorCelda.classList.add('bg-success');
+      }
+
+      calcularPromedioTotal2();
+
+    }
+
+    function calcularPromedioTotal2() {
+
+      var promedios = document.querySelectorAll('#promedio2');
+      var totalPromedios = 0;
+      var cantidadPromedios = 0;
+     
+      for (var i = 0; i < promedios.length; i++) {
+
+        var promedio = parseFloat(promedios[i].innerHTML);
+        if (!isNaN(promedio)) {
+          totalPromedios += promedio;
+          cantidadPromedios++;
+        }
+
+      }
+
+      var promedioTotal = totalPromedios / cantidadPromedios;
+      var promedioTotalCelda = document.getElementById('promedioTotal2');
+      promedioTotalCelda.innerHTML = promedioTotal.toFixed(2);
+
+    }
+
+  </script>
+<script>
+    function calcularPromedio4() {
+      // Obtener todos los elementos select de las filas
+      var selects = document.querySelectorAll('.valor4');
+
+      // Inicializar variables para el cálculo del promedio
+
+      var total = 0;
+      var cantidad = 0;
+
+      // Recorrer cada elemento select y obtener su valor seleccionado
+
+      for (var i = 0; i < selects.length; i++) {
+        var valorSeleccionado = parseFloat(selects[i].value);
+
+        // Verificar si se ha seleccionado un valor válido
+
+        if (!isNaN(valorSeleccionado)) {
+          total += valorSeleccionado;
+          cantidad++;
+        }
+
+      }
+
+      // Calcular el promedio dividiendo la suma total entre la cantidad de valores seleccionados
+      var promedio = total / cantidad;
+      var porcentajev = promedio*100/4;
+
+      // Actualizar el contenido de la celda de promedio
+      var promedioCelda = document.getElementById('promedio4');
+      var porcentaje = document.getElementById('porcentaje4');
+      promedioCelda.innerHTML = promedio.toFixed(2);
+      porcentaje.innerHTML = porcentajev.toFixed(0)+"% ";
+
+     
+      // Establecer el color de fondo de la celda de acuerdo al promedio
+      var colorCelda = document.getElementById('color4');
+      colorCelda.className = 'align-middle';
+      if (porcentajev >= 0 && porcentajev <= 39) {
+        colorCelda.classList.add('bg-danger');
+      } else if (porcentajev > 39 && porcentajev <= 79) {
+        colorCelda.classList.add('bg-warning');
+      } else if (porcentajev > 79 && porcentajev <= 100) {
+        colorCelda.classList.add('bg-success');
+      }
+
+      calcularPromedioTotal4();
+
+    }
+
+    function calcularPromedioTotal4() {
+
+      var promedios = document.querySelectorAll('#promedio4');
+      var totalPromedios = 0;
+      var cantidadPromedios = 0;
+     
+      for (var i = 0; i < promedios.length; i++) {
+
+        var promedio = parseFloat(promedios[i].innerHTML);
+        if (!isNaN(promedio)) {
+          totalPromedios += promedio;
+          cantidadPromedios++;
+        }
+
+      }
+
+      var promedioTotal = totalPromedios / cantidadPromedios;
+      var promedioTotalCelda = document.getElementById('promedioTotal4');
+      promedioTotalCelda.innerHTML = promedioTotal.toFixed(2);
+
+    }
+
+  </script>
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col d-flex justify-content-start">
+      <a href="{{ url_for('hderechoshumanos') }}" class="boton gray" onclick="return false;" style="pointer-events: none; margin-right:2px ;">Derechos Humanos</a>
+      <a href="{{ url_for('hderechoslaborales') }}" class="boton marin" style="margin-right: 2px;">Derechos Laborales</a>
+      <a href="{{ url_for('hmedioambiente') }}" class="boton gray" onclick="return false;" style="pointer-events: none; margin-right:2px ;">Medio Ambiente</a>
+      <a href="{{ url_for('hanticorrupcion') }}" class="boton gray" onclick="return false;" style="pointer-events: none; margin-right:2px ;">Anticorrupción</a>
+      <a href="{{ url_for('hconsolidado') }}" class="boton gray" onclick="return false;" style="pointer-events: none; margin-right:2px ;">Consolidado</a>
+      <a href="{{ url_for('hresumen') }}" class="boton gray" onclick="return false;" style="pointer-events: none; margin-right:2px ;">Resumen Gerencial</a>
+    </div>
+  </div>
+</div>
+<div class="container">
+    <div class="card shadow">
+        <div class="card-body">
+            <form action="/derechoslg" method="POST">
+                <div class="text-center">
+                    <img class="mb-2" src="{{ url_for('static', filename='img/derechoslaborales.png') }}" alt="" width="1085" height="180">
+                </div>
+                <div class="row mb-3">
+                    <div class ="col mt-3">
+                        <label>Fecha</label>
+                        <div id="caja-fecha"></div>
+                    </div>
+                    {% for d in data4 %}
+                        <input type="hidden" name="valorAdicional" value="{{d.proceso_id}}" id="valorAdicional">
+                    {% endfor %}
+                    <div class="col">
+                        <button class="btn mb-3 mt-4" type="submit" style="background-color:  #5ed6b3; color: white;text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); font-family: 'Arial', sans-serif; box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">
+                            Siguiente
+                        </button>
+                    </div>
+                </div>
+
+            <!--tabla-->
+            <table class = "table table-bordered">
+                <thead style="background-color: green">
+                    <th scope="col">No</th>
+                    <th scope="col">Concepto evaluado</th>
+                    <th scope="col">Calificación</th>
+                    <th scope="col">Promedio</th>
+                    <th scope="col">Calificación en porcentaje</th>
+                </thead>
+            <tbody>
+                {% for d2 in data2 %}
+                    <td style="background-color: orangered" colspan="5">{{ d2["descripcion"] }}</td>
+                    {% if loop.index == 1 %}
+                        {% for d in data %}
+                        <tr>
+                            <td>{{ d.pregunta_id }}</td>
+                            <input type="hidden" name="idpreguntas[]" value="{{ d.pregunta_id }}"> 
+                            <td>{{ d.enunciado }}</td>
+                            <td border-width="2px">
+                                <label for="">Clasificación</label>
+                                <select class="valor form-control" name="valor" id="valor1" onchange="calcularPromedio()" required>
+                                  <option value="">Seleccione</option>
+                                  <option value="0">0 - Nunca</option>
+                                  <option value="1">1 - Casi nunca</option>
+                                  <option value="2">2 - Ocasionalmente</option>
+                                  <option value="3">3 - Casi siempre</option>
+                                  <option value="4">4 - Siempre</option>
+                                </select>
+                            </td>
+                            {% if loop.index == 1 %}
+                                <td rowspan="5" class="text-center align-middle" border-width="2px">
+                                    Promedio:
+                                    <h1 id="promedio"></h1>
+                                </td> 
+                                <td rowspan="5" id="color" class="text-center align-middle" border-width="2px">
+                                    Porcentaje:
+                                    <h1 id="porcentaje"></h1>
+                                </td>
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+                    {% elif loop.index == 2 %}
+                        {% for d in data3 %}
+                        <tr>
+                            <td>{{ d.pregunta_id }}</td>
+                            <input type="hidden" name="idpreguntas[]" value="{{ d.pregunta_id }}"> 
+                            <td>{{ d.enunciado }}</td>
+                            <td border-width="2px">
+                                <label for="">Clasificación</label>
+                                <select class="valor2 form-control" name="valor" id="valor2" onchange="calcularPromedio2()" required>
+                                <option value="">Seleccione</option>
+                                <option value="0">0 - Nunca</option>
+                                <option value="1">1 - Casi nunca</option>
+                                <option value="2">2 - Ocasionalmente</option>
+                                <option value="3">3 - Casi siempre</option>
+                                <option value="4">4 - Siempre</option>
+                                </select>
+                            </td>
+                            {% if loop.index == 1 %}
+                                <td rowspan="5" class="text-center align-middle" border-width="2px">
+                                    Promedio:
+                                    <h1 id="promedio2"></h1>
+                                </td> 
+                                <td rowspan="5" id="color2" class="text-center align-middle" border-width="2px">
+                                    Porcentaje:
+                                    <h1 id="porcentaje2"></h1>
+                                </td>
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+                    {% elif loop.index == 3 %}
+                        {% for d in data5 %}
+                        <tr>
+                            <td>{{ d.pregunta_id }}</td>
+                            <input type="hidden" name="idpreguntas[]" value="{{ d.pregunta_id }}"> 
+                            <td>{{ d.enunciado }}</td>
+                            <td border-width="2px">
+                                <label for="">Clasificación</label>
+                                <select class="valor3 form-control" name="valor" id="valor3" onchange="calcularPromedio3()" required>
+                                <option value="">Seleccione</option>
+                                <option value="0">0 - Nunca</option>
+                                <option value="1">1 - Casi nunca</option>
+                                <option value="2">2 - Ocasionalmente</option>
+                                <option value="3">3 - Casi siempre</option>
+                                <option value="4">4 - Siempre</option>
+                                </select>
+                            </td>
+                            {% if loop.index == 1 %}
+                                <td rowspan="4" class="text-center align-middle" border-width="2px">
+                                    Promedio:
+                                    <h1 id="promedio3"></h1>
+                                </td> 
+                                <td rowspan="4" id="color3" class="text-center align-middle" border-width="2px">
+                                    Porcentaje:
+                                    <h1 id="porcentaje3"></h1>
+                                </td>
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+                        {% elif loop.index == 4 %}
+                        {% for d in data6 %}
+                        <tr>
+                            <td>{{ d.pregunta_id }}</td>
+                            <input type="hidden" name="idpreguntas[]" value="{{ d.pregunta_id }}"> 
+                            <td>{{ d.enunciado }}</td>
+                            <td border-width="2px">
+                                <label for="">Clasificación</label>
+                                <select class="valor4 form-control" name="valor" id="valor4" onchange="calcularPromedio4()" required>
+                                <option value="">Seleccione</option>
+                                <option value="0">0 - Nunca</option>
+                                <option value="1">1 - Casi nunca</option>
+                                <option value="2">2 - Ocasionalmente</option>
+                                <option value="3">3 - Casi siempre</option>
+                                <option value="4">4 - Siempre</option>
+                                </select>
+                            </td>
+                            {% if loop.index == 1 %}
+                                <td rowspan="6" class="text-center align-middle" border-width="2px">
+                                    Promedio:
+                                    <h1 id="promedio4"></h1>
+                                </td> 
+                                <td rowspan="6" id="color4" class="text-center align-middle" border-width="2px">
+                                    Porcentaje:
+                                    <h1 id="porcentaje4"></h1>
+                                </td>
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            </form>
+            </tbody>
+        </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

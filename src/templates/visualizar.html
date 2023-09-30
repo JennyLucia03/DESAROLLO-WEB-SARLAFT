@@ -1,0 +1,167 @@
+{% extends './base2.html' %}
+
+{% block title %}Visualizar Documentos Persona{% endblock %}
+
+{% block body %}
+<h2 class ="text-center mt-4 mb-4">Formulario Preinformes Usuarios</h2>
+<div class="container">
+    <div class="card shadow">
+        <div class="card-body">
+          <form action="/visualizarEDocg" method="POST" enctype="multipart/form-data">
+            <div class="row mb-3">
+                <div class ="col-sm-10">
+                    <input type="hidden" name="idInforme" value="{{informe_id}}">
+                    <label for="tipoItem">Tipo informe</label>
+                    <select class="form-control" id="tipoItem" name="tipoItem" required>
+                        <option value="">Seleccione...</option>
+                        {% for da in data2 %}
+                        <option value="{{da.tipo_documento_id}}">{{da.nom_tipo_doc}}</option>
+                        {% endfor %}
+                    </select>  
+                    <div id="contenidoWrapper" style="display: none;">
+                        <label class="text-align:left">Guarde el texto resultado de los antecedentes de policía</label>
+                        <textarea name="contenido" id="contenido" class="form-control" cols="30" rows="3"></textarea>
+                    </div>
+                    <div id="archivo" style="display: none;">
+                        <label for="archivoPDF">Archivo PDF</label>
+                        <input type="file" class="form-control mb-3 " id="archivoPDF" name="archivoPDF" accept=".pdf">
+                    </div>
+                    <script>
+                        document.getElementById('tipoItem').addEventListener('change', function() {
+                            var selectedValue = this.value;
+                            var contenidoWrapper = document.getElementById('contenidoWrapper');
+                            var archivo = document.getElementById('archivo');
+
+                            if (selectedValue == 1) {
+                                contenidoWrapper.style.display = 'block';
+                                archivo.style.display ='none';
+                            } else if(selectedValue > 1){
+                                archivo.style.display = 'block';
+                                contenidoWrapper.style.display = 'none';
+                            }
+                            else {
+                                contenidoWrapper.style.display = 'none';
+                                archivo.style.display ='none';
+                            }
+                        });
+                        </script>
+                </div>
+                <div class="col">
+                    <button class="btn btn-primary mt-5" type="submit">
+                        Guardar
+                    </button>
+                </div>
+            </div>
+        </form>
+            <table class = "table table-bordered">
+                <thead>
+                    <th scope="col">Id Documento Adjunto</th>
+                    <th scope="col">Tipo de Documento</th>
+                    <th scope="col">Archivo Adjunto</th>
+                    <th scope="col">Análisis</th>
+                </thead>
+            <tbody>
+                {%for d in data %}
+                    <tr>
+                        <td>IDOA{{d.documento_id}}</td>
+                        <td>{{d.nom_tipo_doc}}</td>
+                        <td>
+                            <a href="{{ url_for('get_pdf', id=informe_id, id2=d.tipo_documento_id) }}">Ver</a>
+                        </td>
+                        <td>
+                            <div style="text-align: left;margin-left: -20px;">
+                                {% if loop.index == 1 %}
+                                <ul>
+                                    {% for elemento in cuantia %}
+                                    {{elemento}}
+                                    <br>
+                                    {% endfor %}
+                                    {% for elemento in reportado %}
+                                    {{elemento}}
+                                    <br>
+                                    {% endfor %}
+                                </ul>
+                                {% elif loop.index == 2 %}
+                                <ul>
+                                    DELITOS
+                                    <br>
+                                    {% for elemento in crimes %}
+                                    {{elemento}}
+                                    <br>
+                                    {% endfor %}
+                                    INHABILIDADES
+                                    <br>
+                                    {% for elemento in texto %}
+                                    {{elemento}}
+                                    {% endfor %}
+                                </ul>
+                                {% elif loop.index == 3 %}
+                                <ul>
+                                    {% for elemento in policia %}
+                                    {{elemento}}
+                                    <br>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<h2 class ="text-center mt-4 mb-4">Bases de datos a verificar</h2>
+<div class="container">
+    <div class="card shadow">
+        <div class="card-body">
+            <table class = "table table-bordered">
+                <thead>
+                    <th scope="col">Entidad</th>
+                    <th scope="col">Consulta</th>
+                    <th scope="col">Anotaciones</th>
+                </thead>
+            <tbody>
+                    <tr>
+                        <td>JUNTA NACIONAL DE CONTADORES</td>
+                        <td>CONTADORES SANCIONADOS</td>
+                        <td>{{tipo_valor}}</td>
+                    </tr>
+                    <tr>
+                        <td>DIAN</td>
+                        <td>PROVEEDORES FICTICIOS</td>
+                        <td>{{proveedorF}}</td>
+                    </tr>
+                    <tr>
+                        <td>LISTA CLINTON</td>
+                        <td>LISTA RESTRICTIVA SDN</td>
+                        <td>{{sdn}}</td>
+                    </tr>
+                    <tr>
+                        <td>LISTA CLINTON</td>
+                        <td>LISTA RESTRICTIVA NO SDN</td>
+                        <td>{{nosdn}}</td>
+                    </tr>
+                    <tr>
+                        <td>CONTRATISTAS SANCIONADOS SECOP</td>
+                        <td>NÚMERO DE RESOLUCIÓN Y FECHA DE PUBLICACIÓN</td>
+                        <td>{{contratista}}</td>
+                    </tr>
+                    <tr>
+                        <td>LISTA DE SANCIONES SIC</td>
+                        <td>INVESTIGACIÓN DE PROTECCIÓN AL CONSUMIDOR</td>
+                        <td>{{sic}}</td>
+                    </tr>
+                    <tr>
+                        <td>PERSONAS PEP</td>
+                        <td>DECLARACIÓN DIAN</td>
+                        <td>{{pep}}</td>
+                    </tr>
+            </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<br>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends './base.html' %}
+
+{% block title %}Procesos{% endblock %}
+
+{% block body %}
+<h2 class ="text-center mt-4 mb-4">Formulario Preinformes</h2>
+<div class="container">
+    <div class="card shadow">
+        <div class="card-body">
+            <table class = "table table-bordered">
+                <thead>
+                    <th scope="col">Informe Id</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Empresa Solicitante</th>
+                    <th scope="col">Su Empresa</th>
+                    <th scope="col">Subir Documentos</th>
+                </thead>
+            <tbody>
+                {%for d in data %}
+                    <tr>
+                        <td>IFCC{{d.id_relacion}}</td>
+                        <td>{{d.fecha_revison}}</td>
+                        <td>{{d.Razon_empresa_padre}}</td>  
+                        <td>{{d.Razon_empresa_hija}}</td>
+                        <td><a href="{{ url_for('subirDocumentosE',id=d.id_relacion) }}">Subir</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

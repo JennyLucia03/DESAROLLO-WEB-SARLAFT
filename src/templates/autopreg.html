@@ -1,0 +1,95 @@
+{% extends './base2.html' %}
+
+{% block title %}Preguntas Autoevaluación{% endblock %}
+
+{% block body %}
+
+
+<h2 class ="text-center mt-4 mb-4">Administrar Preguntas Autoevaluación</h2>
+<div class="container">
+    <div class="card shadow">
+        <div class="card-body">
+            <form action="/guardarpregru" method="POST">
+                <div class="row mb-3">
+                    <div class ="col">
+                        <label>Pregunta</label>
+                        <input type="text" class="form-control mb-3" name ="enunciado">   
+                    </div>
+                    <div class ="col">
+                        <label>Fecha</label>
+                        <div id="caja-fecha"></div>
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-primary mb-3 mt-4" type="submit">
+                            Guardar
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+            <!--tabla-->
+            <table class = "table table-bordered">
+                <thead>
+                    <th scope="col">Identificación</th>
+                    <th scope="col">Pregunta de Autoevaluación</th>
+                    <th scope="col">Fecha de creación </th>
+                </thead>
+
+               
+            <tbody>
+                {%for d in data%}
+                    <tr>
+                        <td>
+                            {{d.pregunta_id}}        
+                        </td>
+                        <td>
+                            {{d.enunciado}}    
+                        </td>
+                        <td>
+                            {{d.fecha_creada}}    
+                        </td>
+                            
+                        <td>
+                            <button class ="btn btn-primary btn-sm" id="btn-edit{{d.pregunta_id}}" data-bs-toggle="modal" data-bs-target="#modal{{d.pregunta_id}}">
+                                Editar
+                            </button>
+                        </td>
+                        <td>
+                            <a href="{{url_for('borrarpreg',id=d.pregunta_id)}}" class="btn btn-danger btn-sm">
+                                Borrar
+                            </a>
+                        </td>
+                    </tr>
+                    <!--Modal-->
+                    <div class="modal fade" id="modal{{d.pregunta_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h1 class="modal-title fs-5" id="exampleModalLabel">{{d.pregunta_id}}</h1>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="/editarpreg/{{d.pregunta_id}}" method="POST">
+                                    <label>Identificación Pregunta</label>
+                                    <input type="text" class="form-control mb-3" name ="IdPregunta" value ="{{d.pregunta_id}}" disabled>
+                                    <label>Pregunta</label>
+                                    <input type="text" class="form-control mb-3" name ="PPregunta" value ="{{d.enunciado}}">
+                                    <label>Fecha de Creación</label>
+                                    <input type="text" class="form-control mb-3" name ="PPregunta" value ="{{d.fecha_creada}}" disabled>
+
+                            
+                                    <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">Salvar</button>
+                                    </div>
+                                </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                {% endfor %}
+            </tbody>
+        </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

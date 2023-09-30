@@ -1,0 +1,84 @@
+{% extends './base2.html' %}
+
+{% block title %}Tipo Adjunto{% endblock %}
+
+{% block body %}
+
+
+<h2 class ="text-center mt-4 mb-4">Administrar tipo de Archivos Adjuntos</h2>
+<div class="container">
+    <div class="card shadow">
+        <div class="card-body">
+            <form action="/gtipoadjun" method="POST">
+                <div class="row mb-3">
+                    <div class ="col">
+                        <label>Tipo de documento</label>
+                        <input type="text" class="form-control mb-3" name ="tipo_documento">   
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-primary mb-3 mt-4" type="submit">
+                            Guardar
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+            <!--tabla-->
+            <table class = "table table-bordered">
+                <thead>
+                    <th scope="col">Id</th>
+                    <th scope="col">Tipo de Documento Adjunto</th>
+                </thead>
+
+            
+            <tbody>
+                {%for d in data%}
+                    <tr>
+                        <td>
+                            {{d.tipo_documento_id}}        
+                        </td>
+                        <td>
+                            {{d.nom_tipo_doc}}    
+                        </td>
+                        <td>
+                            <button class ="btn btn-primary btn-sm" id="btn-edit{{d.tipo_documento_id}}" data-bs-toggle="modal" data-bs-target="#modal{{d.tipo_documento_id}}">
+                                Editar
+                            </button>
+                        </td>
+                        <td>
+                            <a href="{{url_for('borraradjun',id=d.tipo_documento_id)}}" class="btn btn-danger btn-sm">
+                                Borrar
+                            </a>
+                        </td>
+                    </tr>
+                    <!--Modal-->
+                    <div class="modal fade" id="modal{{d.tipo_documento_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h1 class="modal-title fs-5" id="exampleModalLabel">{{d.nom_tipo_doc}}</h1>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="/editadjunto/{{d.tipo_documento_id}}" method="POST">
+                                    <label>Identificación Tipo de documento</label>
+                                    <input type="text" class="form-control mb-3" name ="Idtipo_documento" value ="{{d.tipo_documento_id}}" disabled>
+                                    <label>Nuevo Nombre de Tipo de documento</label>
+                                    <input type="text" class="form-control mb-3" name ="tipo_documento" value ="{{d.nom_tipo_doc}}">
+                                 
+                            
+                                    <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">Salvar</button>
+                                    </div>
+                                </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                {% endfor %}
+            </tbody>
+        </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

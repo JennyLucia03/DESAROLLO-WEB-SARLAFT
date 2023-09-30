@@ -1,0 +1,99 @@
+{% extends './base2.html' %}
+
+{% block title %}Items{% endblock %}
+
+{% block body %}
+
+<h2 class ="text-center mt-4 mb-4">Administrar Items</h2>
+<div class="container">
+    <div class="card shadow">
+        <div class="card-body">
+            <form action="/items" method="POST">
+                <div class="row mb-3">
+                    <div class ="col">
+                        <label>Descripción Item</label>
+                        <input type="text" class="form-control mb-3" name ="descripcionItem" required>   
+                    </div>
+                    <div class ="col">
+                        <label for="tipoItem">Tipo item</label>
+                        <select class="form-control" id="tipoItem" name="tipoItem" required>
+                            <option value="">Seleccione...</option>
+                            {% for da in data %}
+                            <option value="{{da.items_generales_id}}">{{da.items_generales_descr}}</option>
+                            {% endfor %}
+                        </select>  
+                    </div>
+                    <div class ="col">
+                        <label>Fecha</label>
+                        <div id="caja-fecha"></div>
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-primary mb-3 mt-4" type="submit">
+                            Guardar
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+            <!--tabla-->
+            <table class = "table table-bordered">
+                <thead>
+                    <th scope="col">Id</th>
+                    <th scope="col">Descripción Item</th>
+                    <th scope="col">Item general</th>
+                    <th scope="col">Fecha Item</th>
+                </thead>
+            <tbody>
+                {%for d in data2%}
+                    <tr>
+                        <td>{{d.item_id}}</td>
+                        <td>{{d.descripcion}}</td>
+                        <td>{{d.items_generales_descr}}</td>
+                        <td>{{d.fecha_creada}}</td>
+                        <td>
+                            <button class ="btn btn-primary btn-sm" id="btn-edit{{d.item_id}}" data-bs-toggle="modal" data-bs-target="#modal{{d.item_id}}">
+                                Editar
+                            </button>
+                        </td>
+                        <td>
+                            <a href="{{url_for('borraritems',id=d.item_id)}}" class="btn btn-danger btn-sm">
+                                Borrar
+                            </a>
+                        </td>
+                    </tr>
+                    <!--Modal-->
+                    <div class="modal fade" id="modal{{d.item_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Item</h1>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="/editaritems/{{d.item_id}}" method="POST">  
+                                    <label>Descripción Item</label>
+                                    <input type="text" class="form-control mb-3" name ="descripcionItem" value ="{{d.descripcion}}" required>  
+                                    <label>Fecha de Creación</label>
+                                    <input type="text" class="form-control mb-3" name ="PPregunta" value ="{{d.fecha_creada}}" disabled>
+                                    <label for="tipoItem">Tipo item</label>
+                                    <select class="form-control" id="tipoItem" name="tipoItem" required>
+                                        <option value="{{d.items_generales_id}}">{{d.items_generales_descr}}</option>
+                                        {% for da in data %}
+                                        <option value="{{da.items_generales_id}}">{{da.items_generales_descr}}</option>
+                                        {% endfor %}
+                                    </select>  
+                                    <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                                    </div>
+                                </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                {% endfor %}
+            </tbody>
+        </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,77 @@
+{% extends './base.html' %}
+
+{% block title %}Visualizar Documentos Persona{% endblock %}
+
+{% block body %}
+<br>
+<br>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+  {% for message in messages %}
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-sm-6"> <!-- Aquí puedes ajustar el ancho según tus necesidades -->
+        <div class="alert alert-primary alert-dismissible" role="alert">
+          <strong>{{ message }}</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+{% endif %}
+
+{% endwith %}
+<div class="container" style="margin-left: 105px;">
+    <div class="row">
+        {% for d in data %}
+        <div class="col-sm-4 mb-4"> <!-- Esta clase "col-sm-6" hace que las tarjetas ocupen 50% del ancho en pantallas pequeñas -->
+            <form action="/subirDocEmg" method="POST" enctype="multipart/form-data">
+                <div class="card" style="background-color: rgb(184, 48, 48);">
+                    <input type="hidden" name="idInforme" value="{{id_informe}}">
+                    <div class="card-header">
+                        <input type="hidden" name="tarjeta_id" value="{{d.tipo_documento_id}}">
+                        <h2>{{d.nom_tipo_doc}}</h2>
+                    </div>
+                    <div class="card-body" style="background-color: rgba(238, 233, 233, 0.76);">
+                        <br>
+                        {% if loop.index == 1 %}
+                        <img class="mb-2" src="{{ url_for('static', filename='img/contraloria.png') }}" alt="" width="200" height="200">
+                        {% elif loop.index == 2 %}
+                        <img class="mb-2" src="{{ url_for('static', filename='img/procuraduria.png') }}" alt="" width="200" height="200">
+                        {% elif loop.index == 3 %}
+                        <img class="mb-2" src="{{ url_for('static', filename='img/rut.png') }}" alt="" width="200" height="200">
+                        {% endif %}
+                    </div>
+                    <div class="card-footer text-center">
+                        <input type="hidden" name="titulo" value="{{d.nom_tipo_doc}}">
+                        <div>
+                            <input type="file" class="form-control mb-2" id="archivoPDF" name="archivoPDF" accept=".pdf">
+                            {% if loop.index == 1 %}
+                            <a href="https://www.contraloria.gov.co/web/guest/persona-juridica" target="_blank">Página origen de descarga de documento PDF</a>
+                            <br>
+                            {% else %}
+                            <a href="https://apps.procuraduria.gov.co/portal/Certificado-de-Antecedentes.page" target="_blank">Página origen de descarga de documento PDF</a>
+                            <br>
+                            {% endif %}
+                            <button class="btn float-right" type="submit" style="margin-top: 3px;margin-right: -130px;background-color:  #5ed6b3; color: white;text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); font-family: 'Arial', sans-serif; box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Subir Documento PDF</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<div class="container">
+    <div class="row justify-content-center">
+      <div class="col-sm-4"> <!-- Aquí puedes ajustar el ancho según tus necesidades -->
+        <form action="/comprobarTE" method="POST">
+            <input type="hidden" name="idInforme" value="{{id_informe}}">
+            <button type="submit" class="form-control" id="botonConfirmacion">Terminar</button>
+            <br>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,199 @@
+{% extends './base.html' %}
+
+{% block title %}Home Usuario{% endblock %}
+
+{% block body %}
+
+<style>
+  body {
+    font-size: 16px;
+    font-family: sans-serif;
+    background: #2c3e50;
+    padding: 0;
+    margin: 0;
+  }
+
+  .vertical-menu {
+    position: fixed;
+    left: 20px; /* Ajusta la distancia desde el borde izquierdo */
+    top: 150px; /* Ajusta la distancia desde la parte superior */
+    width: 250px; /* Ajusta el ancho del menú */
+    background-color: #34495e;
+    border-radius: 10px; /* Bordes redondeados */
+    overflow: hidden;
+    padding-bottom: 200px; /* Espacio en blanco en la parte inferior */
+  }
+
+  .vertical-menu a {
+    display: block;
+    padding: 16px;
+    text-decoration: none;
+    color: white;
+  }
+
+  .vertical-menu a:hover {
+    background-color: #1abc9c;
+    border-radius: 10px; /* Cambio de bordes redondeados al pasar el mouse */
+  }
+
+  .content {
+    margin-left: 300px; /* Ajusta el margen izquierdo para dejar espacio para el menú */
+    padding: 20px;
+    margin-top: 100px; /* Espacio superior ajustado */
+  }
+
+  h1 {
+    text-align: center;
+    margin: 10px 0;
+    font-size: 30px;
+    color: #ecf0f1;
+    text-shadow: 2px 2px 4px #000000;
+    font-family: 'Cherry Swash', cursive;
+  }
+
+  p {
+    text-align: center;
+    margin: 10px 0;
+    font-size: 16px;
+    color: #ecf0f1;
+    font-family: 'Cherry Swash', cursive;
+  }
+  .boton {
+    color: white;
+    border: #000;
+    border-radius: 5px;
+    display: inline-block;
+    text-align: center;
+    text-decoration:none;
+    padding: 0.5em 1.2em;
+    background: #318aac;
+    border: 0px solid;
+    position: relative;
+    box-shadow: 0px 3px 0px #000;
+  }
+
+    .boton:before {
+    content:"";
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 0px;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    transition: all 1s ease;
+    }
+    .boton:hover:before {
+    width: 100%;
+    }
+    .boton i {
+    margin-right: 10px;
+    }
+    .boton.white{
+      background: white;
+    }
+    .boton.marin{
+    background: #1abc9c;
+    }
+    .boton.green {
+    background: #1CC60B;
+    }
+    .boton.red {
+    background: #E30B0B;
+    }
+    .boton.blue {
+    background: #4855DA;
+    }
+    .boton.orange {
+    background: #E29C11;
+    }
+    .boton.purple {
+    background: #B911E2;
+    }
+    .boton.gray {
+    background: #858585;
+    }
+
+.btn{margin:16px 6px 2px 0;color:#ffffff;font-weight:bold;display:inline-block;padding:6px 12px;font-size:16px;text-align:center;cursor:pointer;outline:0;background-color:#55acee;}
+
+.btn a {color:#ffffff;text-decoration:none;}
+</style>
+<br>
+<div class="container" style="margin-left: 40px;">
+  <div class="row">
+    {% for d in data4 %}
+    <div class="col-sm-3">
+      <div class="card" style="background-color: #34495e;">
+        <div class="card-header">
+          <h1>{{ current_user.fullname }}</h1>
+        </div>
+        <div class="card-body" style="background-color: rgba(238, 233, 233, 0.76);">
+          <br>
+          <i>Logo</i>
+        </div>
+        <div class="card-footer">
+          <label for="" class="text-light">{{d.pri_nom}}</label>
+          <label for="" class="text-light">{{d.seg_nombre}}</label>
+          <label for="" class="text-light">{{d.primer_apellido}}</label>
+          <label for="" class="text-light">{{d.segundo_apellido}}</label>
+        </div>
+      </div>
+      {% if data3==True %}
+      <div class="btn"><a href="{{ url_for('autorizar') }}">Autorizar Terceros</a></div>
+      {% endif %}
+    </div>
+    {% endfor %}
+    <div class="col-sm-9">
+      <h2 style="margin-left: 100px;">Empresas</h2>
+      <br>
+      <div class="container" style="margin-left: 60px;">
+        <div class="row">
+          {% for d in data %}
+            <div class="col-sm-4 mb-4">
+              <div class="card" style="background-color: #1abc9c;">
+                <div class="card-header">
+                  <h2>{{d.Razon_empresa}}</h2>
+                </div>
+                <div class="card-body" style="background-color: rgba(238, 233, 233, 0.76);">
+                  <br>
+                  <i>Logo</i>
+                </div>
+                <div class="card-footer text-center">
+                  <input type="hidden" name="id_empresa" value="{{d.empresa_id}}">
+                  <label for="Numero_Documento" class="text-dark">NIT {{d.Numero_Documento}}</label>
+                  <div>
+                    <div class="d-flex align-items-center">
+                      <a href="{{ url_for('informespn', id3=d.empresa_id) }}" class="d-flex align-items-center text-dark">
+                          <img src="{{ url_for('static', filename='img/persona.png') }}" width="30" height="30" class="mr-3">
+                          <label for="" class="mb-0">Evaluar persona natural</label>
+                      </a>
+                    </div>
+                    <div class="d-flex align-items-center">
+                      <a href="{{ url_for('relacionada',id2=d.empresa_id) }}"  class="d-flex align-items-center text-dark">
+                        <img src="{{ url_for('static', filename='img/empresa.png') }}" width="30" height="30" class="mr-3">
+                        <label for="" class="mb-0">Evaluar persona jurídica</label>
+                      </a>
+                    </div>
+                    <div class="d-flex align-items-center">
+                      <a href="{{ url_for('hprocesosauto',id=d.empresa_id) }}"  class="d-flex align-items-center text-dark">
+                        <img src="{{ url_for('static', filename='img/autoevaluacion.png') }}" width="30" height="30" class="mr-3">
+                        <label for="" class="mb-0">Proceso autoevaluación</label>
+                      </a>
+                    </div>
+                    <div class="d-flex align-items-center">
+                      <a href="{{ url_for('procesosE',id=d.empresa_id) }}"  class="d-flex align-items-center text-dark">
+                        <img src="{{ url_for('static', filename='img/archivo.png') }}" width="30" height="30" class="mr-2">
+                        <label for="" class="mb-0">Subir documentos</label>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

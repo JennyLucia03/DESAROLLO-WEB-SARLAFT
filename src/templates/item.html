@@ -1,0 +1,90 @@
+{% extends './base2.html' %}
+
+{% block title %}Items Generales{% endblock %}
+
+{% block body %}
+
+<h2 class ="text-center mt-4 mb-4">Administrar items generales</h2>
+<div class="container">
+    <div class="card shadow">
+        <div class="card-body">
+            <form action="/item" method="POST">
+                <div class="row mb-3">
+                    <div class ="col">
+                        <label>Nombre Item</label>
+                        <input type="text" class="form-control mb-3" name ="nombreItem" required>   
+                    </div>
+                    <div class ="col">
+                        <label>Descripción Item</label>
+                        <input type="text" class="form-control mb-3" name ="descripcionItem" required>   
+                    </div>
+                    <div class ="col">
+                        <label>Fecha</label>
+                        <div id="caja-fecha"></div>
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-primary mb-3 mt-4" type="submit">
+                            Guardar
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+            <!--tabla-->
+            <table class = "table table-bordered">
+                <thead>
+                    <th scope="col">Id</th>
+                    <th scope="col">Nombre Item</th>
+                    <th scope="col">Descripción Ítem</th>
+                    <th scope="col">Fecha Item</th>
+                </thead>
+            
+            <tbody>
+                {%for d in data%}
+                    <tr>
+                        <td>{{d.items_generales_id}}</td>
+                        <td>{{d.items_generales_nom}}</td>
+                        <td>{{d.items_generales_descr}}</td>
+                        <td>{{d.items_generales_fecha}}</td>
+                        <td>
+                            <button class ="btn btn-primary btn-sm" id="btn-edit{{d.items_generales_id}}" data-bs-toggle="modal" data-bs-target="#modal{{d.items_generales_id}}">
+                                Editar
+                            </button>
+                        </td>
+                        <td>
+                            <a href="{{url_for('borraritem',id=d.items_generales_id)}}" class="btn btn-danger btn-sm">
+                                Borrar
+                            </a>
+                        </td>
+                    </tr>
+                    <!--Modal-->
+                    <div class="modal fade" id="modal{{d.items_generales_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h1 class="modal-title fs-5" id="exampleModalLabel">{{d.items_generales_nom}}</h1>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="/editaritem/{{d.items_generales_id}}" method="POST">
+                                    <label>Nombre Item</label>
+                                    <input type="text" class="form-control mb-3" name ="nombreItem" value ="{{d.items_generales_nom}}" required>  
+                                    <label>Descripción Item</label>
+                                    <input type="text" class="form-control mb-3" name ="descripcionItem" value ="{{d.items_generales_descr}}" required>  
+                                    <label>Fecha de Creación</label>
+                                    <input type="text" class="form-control mb-3" name ="PPregunta" value ="{{d.items_generales_fecha}}" disabled>
+                                    <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                                    </div>
+                                </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                {% endfor %}
+            </tbody>
+        </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

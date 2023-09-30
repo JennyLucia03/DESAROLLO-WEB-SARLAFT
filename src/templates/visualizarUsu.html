@@ -1,0 +1,49 @@
+{% extends './base2.html' %}
+
+{% block title %}Visualizar empleados{% endblock %}
+
+{% block body %}
+{% with messages = get_flashed_messages() %}
+
+    {% if messages %}
+      <br />
+      {% for message in messages %}
+        <div class="alert alert-primary alert-dismissible" role="alert">
+          <strong>{{ message }}</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      {% endfor %}
+    {% endif %}
+{% endwith %}
+<h2 class ="text-center mt-4 mb-4">Formulario Preinformes Usuarios</h2>
+<div class="container">
+    <div class="card shadow">
+        <div class="card-body">
+            <table class = "table table-bordered">
+                <thead>
+                    <th scope="col">Informe Id</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Hora</th>
+                    <th scope="col">Empresa Solicitante</th>
+                    <th scope="col">Usuario</th>
+                    <th scope="col">Documento</th>
+                    <th scope="col">Realizar Preinforme</th>
+                </thead>
+            <tbody>
+                {%for d in data %}
+                    <tr>
+                        <td>IFCC{{d.informe_id}}</td>
+                        <td>{{d.fecha}}</td>
+                        <td>{{d.hora}}</td>
+                        <td>{{d.Razon_empresa}}</td> 
+                        <td>{{d.pri_nom}}  {{d.primer_apellido}}</td>  
+                        <td>{{d.documento}}</td> 
+                        <td><a href="{{ url_for('visualizarEvaluacion',id=d.informe_id) }}">Ir</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

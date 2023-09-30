@@ -1,0 +1,323 @@
+{% extends './base.html' %}
+
+{% block title %}Resumen Gerencial{% endblock %}
+
+{% block body %}
+<style>
+    .boton {
+    color: white;
+    border: #000;
+    border-radius: 5px;
+    display: inline-block;
+    text-align: center;
+    text-decoration:none;
+    padding: 0.5em 1.2em;
+    background: #318aac;
+    border: 0px solid;
+    position: relative;
+    box-shadow: 0px 3px 0px #000;
+  }
+
+    .boton:before {
+    content:"";
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 0px;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    transition: all 1s ease;
+    }
+    .boton:hover:before {
+    width: 100%;
+    }
+    .boton i {
+    margin-right: 10px;
+    }
+    .boton.white{
+      background: white;
+    }
+    .boton.marin{
+    background: #1abc9c;
+    }
+    .boton.green {
+    background: #1CC60B;
+    }
+    .boton.red {
+    background: #E30B0B;
+    }
+    .boton.blue {
+    background: #4855DA;
+    }
+    .boton.orange {
+    background: #E29C11;
+    }
+    .boton.purple {
+    background: #B911E2;
+    }
+    .boton.gray {
+    background: #858585;
+    }
+</style>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var celdaOrigen = document.querySelector('.valor-origen');
+      var celdaDestino = document.querySelector('.valor-celda');
+      var valor = parseInt(celdaOrigen.textContent);
+
+      // Obtén el elemento del div
+      var cardDiv = document.querySelector('.c1');
+
+      if (!isNaN(valor)) {
+
+        if (valor >= 0 && valor <= 39) {
+            cardDiv.style.setProperty('--color', 'hsl(357, 100%, 49%)');
+        } else if (valor > 39 && valor <= 79) {
+            cardDiv.style.setProperty('--color', 'hsl(56, 91%, 54%)');
+        } else if (valor > 79 && valor <= 100) {
+            cardDiv.style.setProperty('--color', 'hsl(120, 93%, 24%)');
+        }
+      }
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var celdaOrigen = document.querySelector('.valor-origen2');
+      var celdaDestino = document.querySelector('.valor-celda2');
+      var valor = parseInt(celdaOrigen.textContent);
+
+      // Obtén el elemento del div
+      var cardDiv = document.querySelector('.c2');
+
+      if (!isNaN(valor)) {
+
+        if (valor >= 0 && valor <= 39) {
+            cardDiv.style.setProperty('--color', 'hsl(357, 100%, 49%)');
+        } else if (valor > 39 && valor <= 79) {
+            cardDiv.style.setProperty('--color', 'hsl(56, 91%, 54%)');
+        } else if (valor > 79 && valor <= 100) {
+            cardDiv.style.setProperty('--color', 'hsl(120, 93%, 24%)');
+        }
+      }
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var celdaOrigen = document.querySelector('.valor-origen3');
+      var celdaDestino = document.querySelector('.valor-celda3');
+      var valor = parseInt(celdaOrigen.textContent);
+
+      // Obtén el elemento del div
+      var cardDiv = document.querySelector('.c3');
+
+      if (!isNaN(valor)) {
+
+        if (valor >= 0 && valor <= 39) {
+            cardDiv.style.setProperty('--color', 'hsl(357, 100%, 49%)');
+        } else if (valor > 39 && valor <= 79) {
+            cardDiv.style.setProperty('--color', 'hsl(56, 91%, 54%)');
+        } else if (valor > 79 && valor <= 100) {
+            cardDiv.style.setProperty('--color', 'hsl(120, 93%, 24%)');
+        }
+      }
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var celdaOrigen = document.querySelector('.valor-origen4');
+      var celdaDestino = document.querySelector('.valor-celda4');
+      var valor = parseInt(celdaOrigen.textContent);
+
+      // Obtén el elemento del div
+      var cardDiv = document.querySelector('.c4');
+
+      if (!isNaN(valor)) {
+
+        if (valor >= 0 && valor <= 39) {
+            cardDiv.style.setProperty('--color', 'hsl(357, 100%, 49%)');
+        } else if (valor > 39 && valor <= 79) {
+            cardDiv.style.setProperty('--color', 'hsl(56, 91%, 54%)');
+        } else if (valor > 79 && valor <= 100) {
+            cardDiv.style.setProperty('--color', 'hsl(120, 93%, 24%)');
+        }
+      }
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var celdaOrigen = document.querySelector('.valor-origen5');
+      var celdaDestino = document.querySelector('.valor-celda5');
+      var valor = parseInt(celdaOrigen.textContent);
+
+      // Obtén el elemento del div
+      var cardDiv = document.querySelector('.c5');
+
+      if (!isNaN(valor)) {
+
+        if (valor >= 0 && valor <= 39) {
+            cardDiv.style.setProperty('--color', 'hsl(357, 100%, 49%)');
+        } else if (valor > 39 && valor <= 79) {
+            cardDiv.style.setProperty('--color', 'hsl(56, 91%, 54%)');
+        } else if (valor > 79 && valor <= 100) {
+            cardDiv.style.setProperty('--color', 'hsl(120, 93%, 24%)');
+        }
+      }
+    });
+</script>
+<br>
+<div class="container">
+    <div class="row">
+      <div class="col d-flex justify-content-start">
+        <a href="{{ url_for('hderechoshumanos') }}" class="boton gray" onclick="return false;" style="pointer-events: none; margin-right:2px ;">Derechos Humanos</a>
+        <a href="{{ url_for('hderechoslaborales') }}" class="boton gray" onclick="return false;" style="pointer-events: none; margin-right:2px ;">Derechos Laborales</a>
+        <a href="{{ url_for('hmedioambiente') }}" class="boton gray" onclick="return false;" style="pointer-events: none; margin-right:2px ;">Medio Ambiente</a>
+        <a href="{{ url_for('hanticorrupcion') }}" class="boton gray" onclick="return false;" style="pointer-events: none; margin-right:2px ;">Anticorrupción</a>
+        <a href="{{ url_for('hconsolidado') }}" class="boton marin"style="margin-right: 2px;">Consolidado</a>
+        <a href="{{ url_for('hresumen') }}" class="boton marin"style="margin-right: 2px;">Resumen Gerencial</a>
+        <a href="{{ url_for('home') }}" class="boton red"style="margin-left: 69px;">Salir</a>
+      </div>
+    </div>
+  </div>
+<div class="container">
+    <div class="card shadow">
+        <div class="card-body">
+            <div class="text-center">
+                <img class="mb-2" src="{{ url_for('static', filename='img/resumengerencial.png') }}" alt="" width="1085" height="180">
+            </div>
+            <div class="container mt-2">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="bg-primary text-white text-center p-4" style="margin-left: -11px;">Desempeño en Derechos Humanos</div>
+                    </div>                        
+                    <div class="col-6">
+                        <div class="bg-primary text-white text-center p-4" style="margin-right: -10px;">Desempeño en Derechos Laborales</div>
+                    </div>
+                </div>      
+            </div>
+            <div style="display: flex;">
+                <section class ="card-general">
+                    <div class="card1 valor-celda c1" id="card1" style="--color: ; float: left; margin-left: 150px;">
+                    <div class="card__border"></div>
+                    <div class="card__border-line"></div>
+                    <div class="card__inner">
+                        <div class="card__img">
+                        <div class="img__athlete">
+                        </div>
+                        </div>
+                        <div class="card__text">
+                        <div class="card__type" style="--bg-color: hsl(40, 100%, 50%);">%</div>
+                        <h1 class="name">Promedio General</h1>
+                        <br>
+                        {% for d in data %}
+                            <p class="points valor-origen vc">{{d.porcentaje}}%</p>
+                        {% endfor %}
+                        </div>
+                    </div>
+                    </div>
+                </section>
+                <section class ="card-general">
+                    <div class="card1 valor-celda2 c2" id="card2" style="--color: ; float: right; margin-right: 150px;">
+                    <div class="card__border"></div>
+                    <div class="card__border-line"></div>
+                    <div class="card__inner">
+                        <div class="card__img">
+                        <div class="img__athlete">
+                        </div>
+                        </div>
+                        <div class="card__text">
+                        <div class="card__type" style="--bg-color: hsl(40, 100%, 50%);">%</div>
+                        <h1 class="name">Promedio General</h1>
+                        <br>
+                        {% for d in data2 %}
+                            <p class="points valor-origen2 vc">{{d.porcentaje}}%</p>
+                        {% endfor %}
+                        </div>
+                    </div>
+                    </div>
+                    </div>
+                </section>
+                <div class="container mt-2">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="bg-primary text-white text-center p-4" style="margin-left: -11px;">Desempeño Medio Ambiental</div>
+                        </div>                        
+                        <div class="col-6">
+                            <div class="bg-primary text-white text-center p-4" style="margin-right: -10px;">Desempeño en la Lucha Contra la Corrupción</div>
+                        </div>
+                    </div>      
+                </div>
+                <div style="display: flex;">
+                    <section class ="card-general">
+                        <div class="card1 valor-celda3 c3" id="card1" style="--color: ; float: left; margin-left: 150px;">
+                        <div class="card__border"></div>
+                        <div class="card__border-line"></div>
+                        <div class="card__inner">
+                            <div class="card__img">
+                            <div class="img__athlete">
+                            </div>
+                            </div>
+                            <div class="card__text">
+                            <div class="card__type" style="--bg-color: hsl(40, 100%, 50%);">%</div>
+                            <h1 class="name">Promedio General</h1>
+                            <br>
+                            {% for d in data3 %}
+                                <p class="points valor-origen3 vc">{{d.porcentaje}}%</p>
+                            {% endfor %}
+                            </div>
+                        </div>
+                        </div>
+                    </section>
+                    <section class ="card-general">
+                        <div class="card1 valor-celda4 c4" id="card2" style="--color: ; float: right; margin-right: 150px;">
+                        <div class="card__border"></div>
+                        <div class="card__border-line"></div>
+                        <div class="card__inner">
+                            <div class="card__img">
+                            <div class="img__athlete">
+                            </div>
+                            </div>
+                            <div class="card__text">
+                            <div class="card__type" style="--bg-color: hsl(40, 100%, 50%);">%</div>
+                            <h1 class="name">Promedio General</h1>
+                            <br>
+                            {% for d in data4 %}
+                                <p class="points valor-origen4 vc">{{d.porcentaje}}%</p>
+                            {% endfor %}
+                            </div>
+                        </div>
+                        </div>
+                        </div>
+                    </section>
+                    <div class="container mt-2">
+                        <div class="row justify-content-center align-items-center">
+                            <div class="col-6">
+                                <div class="text-white text-center p-4" style="background-color: green;">Desempeño General de la Empresa Frente al PACTO GLOBAL</div>
+                            </div>  
+                        </div>      
+                    </div>
+                    <section class ="card-general justify-content-center">
+                        <div class="card1 valor-celda5 c5" id="card2" style="--color: ">
+                        <div class="card__border"></div>
+                        <div class="card__border-line"></div>
+                        <div class="card__inner">
+                            <div class="card__img">
+                            <div class="img__athlete">
+                            </div>
+                            </div>
+                            <div class="card__text">
+                            <div class="card__type" style="--bg-color: hsl(40, 100%, 50%);">%</div>
+                            <h1 class="name">Promedio General</h1>
+                            <br>
+                            {% for d in data5 %}
+                                <p class="points valor-origen5 vc">{{d.porcentaje}}%</p>
+                            {% endfor %}
+                            </div>
+                        </div>
+                        </div>
+                        </div>
+                    </section>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
