@@ -11,6 +11,7 @@ from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
+import csv
 import datetime
 import pdfplumber
 import io
@@ -1535,7 +1536,7 @@ def informespn():
     except Exception as e:
         print("Error al consultar en la base de datos:", str(e)) 
 
-    now = datetime.datetime.now()
+    now = datetime.now()
     formatted_date = now.strftime('%d/%m/%Y')
     formatted_time = now.strftime('%H:%M:%S')
 
@@ -1543,7 +1544,7 @@ def informespn():
 
 @app.route('/informesg',methods=['POST'])
 def informesg():
-    now = datetime.datetime.now()
+    now = datetime.now()
     today = date.today()
     current_date = today.strftime("%Y-%m-%d")
     formatted_time = now.strftime('%H:%M:%S')
@@ -1945,7 +1946,6 @@ def visualizarEvaluacion():
             reportado = ['NO EXISTE ANOTACIÓN']
 
         # Eliminar el archivo temporal después de usarlo
-        import os
         os.remove(temp_pdf_path)
 
         cursor = db1.database.cursor()
@@ -2022,8 +2022,9 @@ def visualizarEvaluacion():
                 cursor.execute("SELECT empleados.documento FROM informes INNER JOIN empleados ON empleados.empleado_id = informes.empleado_id WHERE informes.informe_id = %s ",(id_informe,))
                 myresult= cursor.fetchall()
                 numero_buscado = myresult[0][0]
+                numero_buscado = int(numero_buscado)
                 cursor.close()
-                #numero_buscado = 16616559
+                #numero_buscado = 53038673
                 fila_encontrada = df.loc[df[columna_busqueda] == numero_buscado]
                 
                 # Verifica si se encontró la fila
@@ -2036,6 +2037,7 @@ def visualizarEvaluacion():
                 print("La columna de búsqueda especificada no existe en el DataFrame.")
         else:
             print("Error al realizar la solicitud HTTP:", response.status_code)
+        print('Tipo valor:',tipo_valor)
         #Proveedores ficticios
         # Ruta del archivo PDF
         pdf_path = open('static/archivos/proveedorF.pdf','rb')
@@ -2063,16 +2065,14 @@ def visualizarEvaluacion():
         # Buscar el número en el PDF y mostrar el texto encontrado
         texto_encontrado = buscar_numero_en_pdf(pdf_path, numero_buscado1)
         if texto_encontrado:
-            proveedorF = 'SE ENCUENTRA EN LA BASE DE DATOS DE PROVEEDORE FICTICIOS'
+            proveedorF = 'SE ENCUENTRA EN LA BASE DE DATOS DE PROVEEDORES FICTICIOS'
         else:
             proveedorF = 'NO TIENE ANOTACIÓN'
-        #Lista Clinton CDN
+        #Lista Clinton SDN
 
         # Ruta del archivo CSV local
         csv_path = open('static/archivos/sdn.csv','rb') # Reemplaza esto con la ruta correcta
-        # Nombres de columna personalizados
         column_names = ["Codigo", "Sujeto", "0", "Pais", "1", "2", "3", "4", "5", "6", "7", "8"]
-        # Leer el CSV desde la ruta local y crear un DataFrame con los nombres de columna personalizados
         df = pd.read_csv(csv_path, names=column_names, header=0)
         # Limpiar los valores en la columna "Sujeto"
         df['Sujeto'] = df['Sujeto'].str.replace('[.,\-\s]', '', regex=True)
@@ -2097,6 +2097,7 @@ def visualizarEvaluacion():
 
         # Filtrar el DataFrame para encontrar filas que contienen "nombre_completo_sin_caracteres" (sin espacios)
         #filtro = df['Sujeto'].str.contains('FADLALLAHSHAYKHMUHAMMADHUSAYN', case=False, na=False)
+        #filtro = df['Sujeto'].str.contains('JULIOFABIOURDINOLAGRAJALES', case=False, na=False)
         filtro = df['Sujeto'].str.contains(nombre_completo_sin_caracteres, case=False, na=False)
 
         # Obtener un nuevo DataFrame con las filas que cumplen el filtro
@@ -2253,10 +2254,27 @@ def visualizarEvaluacion():
                     pep = pep.upper()
             else:
                 pep = 'NO TIENE ANOTACIÓN'
+            # Otra forma de consultar a la lista sdn a través de la cédula
+            # Definir la cédula que estás buscando
+            # numero_buscado = "29503761"
+
+            # Abrir el archivo CSV
+            with open('static/archivos/sdn.csv', newline='', encoding='utf-8') as csvfile:
+                reader = csv.reader(csvfile)
+                for row in reader:
+                    if row:
+                        cedula_info = row[-1]
+                        inicio_cedula = cedula_info.find("Cedula No.")
+                        if inicio_cedula != -1:
+                            cedula = cedula_info[inicio_cedula + len("Cedula No."):].split()[0]
+                            if cedula == str(numero_buscado):
+                                sdn = 'SE ENCUENTRA EN ESTA LISTA'
+                                break  
         else:
             print("Error al realizar la solicitud HTTP:", response.status_code)
     except Exception as e:
         print("Error al consultar en la base de datos:", str(e)) 
+        flash('Documentos aún por subir')
     return render_template('visualizar.html',data=insertObject, informe_id=id_informe, data2=insertObject2,
                            crimes=crimes_list,cuantia=cuantia,reportado=reportado,texto=cadena_dos,
                            policia=policia,tipo_valor=tipo_valor,proveedorF=proveedorF,sdn=sdn,nosdn=nosdn,
@@ -2605,7 +2623,12 @@ def visualizarEvaluacionEm():
     insertObject=[]
     insertObject2=[]
     proveedorF = '' 
+    sdn=''
+    nosdn=''
+    contratista=''
+    sic=''
     try:
+        
         cursor=db1.database.cursor()
         cursor.execute("SELECT doc_adj_emp.doc_emp_id, tipos_documento_adjunto.nom_tipo_doc, tipos_documento_adjunto.tipo_documento_id FROM doc_adj_emp INNER JOIN tipos_documento_adjunto ON tipos_documento_adjunto.tipo_documento_id = doc_adj_emp.tipo_documento_adjunto INNER JOIN relacionada ON relacionada.id_relacion = doc_adj_emp.id_relacion WHERE relacionada.id_relacion = %s;",(id_informe,))
         myresult= cursor.fetchall()
@@ -2613,6 +2636,7 @@ def visualizarEvaluacionEm():
         columnNames=[column[0] for column in cursor.description]
         for record in myresult: 
             insertObject.append(dict(zip(columnNames,record)))
+            print('insertObject:',insertObject)
         cursor.close()
 
         cursor2=db1.database.cursor()
@@ -2888,6 +2912,7 @@ def visualizarEvaluacionEm():
                 sic = 'NO TIENE ANOTACIÓN'
     except Exception as e:
         print("Error al consultar en la base de datos:", str(e)) 
+        flash('Documentos aún por subir')
     return render_template('visualizarE.html',data=insertObject, informe_id=id_informe, data2=insertObject2,
                            crimes=crimes_list,cuantia=cuantia,reportado=reportado,texto=cadena_dos,policia=policia,
                            proveedor=proveedorF,sdn=sdn,nosdn=nosdn,contratista=contratista,sic=sic)

@@ -3,6 +3,19 @@
 {% block title %}Visualizar Documentos Persona{% endblock %}
 
 {% block body %}
+{% with messages = get_flashed_messages() %}
+
+        {% if messages %}
+          <br />
+          {% for message in messages %}
+            <div class="alert alert-primary alert-dismissible" role="alert">
+              <strong>{{ message }}</strong>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          {% endfor %}
+        {% endif %}
+
+{% endwith %}
 <h2 class ="text-center mt-4 mb-4">Formulario Preinformes Usuarios</h2>
 <div class="container">
     <div class="card shadow">
